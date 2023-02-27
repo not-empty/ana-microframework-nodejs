@@ -1,13 +1,11 @@
-const controllerFolder = `${process.cwd()}/src/domains/user/controllers`;
-
-const userListController = require(`${controllerFolder}/UserListController`);
-const userDeadListController = require(`${controllerFolder}/UserDeadListController`);
-const userDetailController = require(`${controllerFolder}/UserDetailController`);
-const userDeadDetailController = require(`${controllerFolder}/UserDeadDetailController`);
-const userAddController = require(`${controllerFolder}/UserAddController`);
-const userBulkController = require(`${controllerFolder}/UserBulkController`);
-const userDeleteController = require(`${controllerFolder}/UserDeleteController`);
-const userEditController = require(`${controllerFolder}/UserEditController`);
+const userListController = require('./UserListController');
+const userDeadListController = require('./UserDeadListController');
+const userDetailController = require('./UserDetailController');
+const userDeadDetailController = require('./UserDeadDetailController');
+const userAddController = require('./UserAddController');
+const userBulkController = require('./UserBulkController');
+const userDeleteController = require('./UserDeleteController');
+const userEditController = require('./UserEditController');
 
 module.exports = {
   userListController,

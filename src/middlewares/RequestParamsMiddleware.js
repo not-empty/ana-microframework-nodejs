@@ -9,7 +9,7 @@ class RequestParamsMiddleware {
         orderToClean = 'id';
       }
 
-      let fieldsToClean = '*';
+      let fieldsToClean = ['*'];
       if (req.query.fields !== undefined) {
         fieldsToClean = (req.query.fields ?? '*').split(',');
         fieldsToClean = fields.filter(x => fieldsToClean.includes(x));

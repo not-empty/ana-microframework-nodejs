@@ -1,8 +1,6 @@
-const validatorFolder = `${process.cwd()}/src/domains/user/validators`;
-
-const userAddValidator = require(`${validatorFolder}/UserAddValidator`);
-const userBulkValidator = require(`${validatorFolder}/UserBulkValidator`);
-const userEditValidator = require(`${validatorFolder}/UserEditValidator`);
+const userAddValidator = require('./UserAddValidator');
+const userBulkValidator = require('./UserBulkValidator');
+const userEditValidator = require('./UserEditValidator');
 
 module.exports = {
   userAddValidator,

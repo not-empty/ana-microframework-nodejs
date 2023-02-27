@@ -1,41 +1,41 @@
 const express = require('express');
 
-const indexController = require('../src/domains/user/controllers/index');
-const indexValidator = require('../src/domains/user/validators/index');
+const controller = require('../src/domains/user/controllers/index');
 const JwtMiddleware = require('../src/middlewares/JwtMiddleware');
 const RequestParamsMiddleware = require('../src/middlewares/RequestParamsMiddleware');
 const userParameter = require('../src/domains/user/parameters/UserParameter');
+const validator = require('../src/domains/user/validators/index');
 
 const router = express.Router();
 
 router.use(JwtMiddleware.process);
 router.use(RequestParamsMiddleware.process(userParameter.fields, userParameter.order));
 
-router.get('/list', (req, res) => indexController.userListController.process(req, res));
-router.get('/dead_list', (req, res) => indexController.userDeadListController.process(req, res));
-router.get('/detail/:id', (req, res) => indexController.userDetailController.process(req, res));
-router.get('/dead_detail/:id', (req, res) => indexController.userDeadDetailController.process(req, res));
-router.delete('/delete/:id', (req, res) => indexController.userDeleteController.process(req, res));
+router.get('/list', (req, res) => controller.userListController.process(req, res));
+router.get('/dead_list', (req, res) => controller.userDeadListController.process(req, res));
+router.get('/detail/:id', (req, res) => controller.userDetailController.process(req, res));
+router.get('/dead_detail/:id', (req, res) => controller.userDeadDetailController.process(req, res));
+router.delete('/delete/:id', (req, res) => controller.userDeleteController.process(req, res));
 
 router.post(
   '/add',
-  indexValidator.userAddValidator.getValidations(),
-  indexValidator.userAddValidator.checkRules,
-  (req, res) => indexController.userAddController.process(req, res)
+  validator.userAddValidator.getValidations(),
+  validator.userAddValidator.checkRules,
+  (req, res) => controller.userAddController.process(req, res)
 );
 
 router.patch(
   '/edit/:id',
-  indexValidator.userEditValidator.getValidations(),
-  indexValidator.userEditValidator.checkRules,
-  (req, res) => indexController.userEditController.process(req, res)
+  validator.userEditValidator.getValidations(),
+  validator.userEditValidator.checkRules,
+  (req, res) => controller.userEditController.process(req, res)
 );
 
 router.post(
   '/bulk',
-  indexValidator.userBulkValidator.getValidations(),
-  indexValidator.userBulkValidator.checkRules,
-  (req, res) => indexController.userBulkController.process(req, res)
+  validator.userBulkValidator.getValidations(),
+  validator.userBulkValidator.checkRules,
+  (req, res) => controller.userBulkController.process(req, res)
 );
 
 module.exports = router;
