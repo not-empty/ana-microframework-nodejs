@@ -9,8 +9,11 @@ class RequestParamsMiddleware {
         orderToClean = 'id';
       }
 
-      let fieldsToClean = (req.query.fields ?? '*').split(',');
-      fieldsToClean = fields.filter(x => fieldsToClean.includes(x));
+      let fieldsToClean = ['*'];
+      if (req.query.fields !== undefined) {
+        fieldsToClean = (req.query.fields ?? '*').split(',');
+        fieldsToClean = fields.filter(x => fieldsToClean.includes(x));
+      }
   
       res.locals.page = page;
       res.locals.classOrder = classOrder;
