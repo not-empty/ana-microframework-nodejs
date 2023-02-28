@@ -6,7 +6,12 @@ class UserDeadListBusiness {
   }
 
   process(query) {
-    const result = this.userDeadListRepository.getDead(query.fields, query.page, query.order, query.class);
+    const result = this.userDeadListRepository.getDead(
+      query.fields,
+      query.page,
+      query.order,
+      query.class
+    );
     return result;
   }
 }

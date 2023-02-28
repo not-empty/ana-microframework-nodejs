@@ -9,17 +9,17 @@ class JwtMiddleware {
     const context = req.get('Context');
 
     if (
-        authorization == undefined ||
-        !authorization.length
+      typeof authorization === 'undefined' ||
+      !authorization.length
     ) {
       res.status(401).send(
         response.send(
           null,
           [],
           'Invalid token or expired token',
-        )
+        ),
       );
-  
+
       return false;
     }
 
@@ -30,7 +30,7 @@ class JwtMiddleware {
           null,
           [],
           'Invalid token or expired token',
-        )
+        ),
       );
 
       return false;

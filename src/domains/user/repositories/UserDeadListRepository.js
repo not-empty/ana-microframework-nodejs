@@ -5,5 +5,5 @@ class UserDeadListRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 module.exports = new UserDeadListRepository();

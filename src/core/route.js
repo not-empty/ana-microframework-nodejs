@@ -2,7 +2,7 @@ const fs = require('fs');
 
 class Route {
   constructor() {
-    this.routeDir = process.cwd() + '/routes/';
+    this.routeDir = `${process.cwd()}/routes/`;
   }
 
   getRouteDir() {
@@ -11,7 +11,7 @@ class Route {
 
   getRouteList() {
     const routeList = new Map();
-    fs.readdirSync(this.routeDir).forEach(file => {
+    fs.readdirSync(this.routeDir).forEach((file) => {
       const domain = file.replace('.js', '');
       const router = this.routeDir + domain;
 

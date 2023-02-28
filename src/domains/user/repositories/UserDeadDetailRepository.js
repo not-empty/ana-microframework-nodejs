@@ -5,5 +5,5 @@ class UserDeadDetailRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 module.exports = new UserDeadDetailRepository();

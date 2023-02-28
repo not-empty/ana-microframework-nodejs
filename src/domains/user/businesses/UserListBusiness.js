@@ -6,7 +6,12 @@ class UserDetailBusiness {
   }
 
   process(query) {
-    const result = this.userListRepository.get(query.fields, query.page, query.order, query.class);
+    const result = this.userListRepository.get(
+      query.fields,
+      query.page,
+      query.order,
+      query.class
+    );
     return result;
   }
 }
