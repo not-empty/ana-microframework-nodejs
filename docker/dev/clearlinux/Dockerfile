@@ -1,7 +1,12 @@
 FROM kiwfydev/node-clear-linux:latest
 
+WORKDIR /usr/src/
+RUN ls -la
+COPY package-lock.json .
+COPY package.json .
+
 EXPOSE 3000
 
-WORKDIR /usr/src/
-
-CMD ["npm", "start"]
+COPY . .
+RUN npm install
+CMD ["npm", "run", "dev"]

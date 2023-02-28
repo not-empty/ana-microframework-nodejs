@@ -2,7 +2,8 @@
   "name": "ana-microframework",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -13,5 +14,8 @@
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
     "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

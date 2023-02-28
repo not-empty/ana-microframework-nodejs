@@ -1,7 +1,9 @@
 version: '3.7'
 services:
   ana-microservice-nodejs:
-    build: ./docker/dev/clearlinux
+    build:
+      context: .
+      dockerfile: ./docker/dev/clearlinux/Dockerfile
     container_name: ana-microservice-nodejs
     ports:
       - 3000:3000
@@ -9,6 +11,7 @@ services:
       - ana-microservice-mysql
     volumes:
       - ./:/usr/src/
+      - /usr/src/node_modules
 
   ana-microservice-mysql:
     image: mysql:8.0.28
