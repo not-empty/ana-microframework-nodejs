@@ -12,10 +12,26 @@ router.use(JwtMiddleware.process);
 router.use(RequestParamsMiddleware.process(userParameter.fields, userParameter.order));
 
 router.get('/list', (req, res) => controller.userListController.process(req, res));
-router.get('/dead_list', (req, res) => controller.userDeadListController.process(req, res));
-router.get('/detail/:id', (req, res) => controller.userDetailController.process(req, res));
-router.get('/dead_detail/:id', (req, res) => controller.userDeadDetailController.process(req, res));
-router.delete('/delete/:id', (req, res) => controller.userDeleteController.process(req, res));
+
+router.get(
+  '/dead_list',
+  (req, res) => controller.userDeadListController.process(req, res)
+);
+
+router.get(
+  '/detail/:id',
+  (req, res) => controller.userDetailController.process(req, res)
+);
+
+router.get(
+  '/dead_detail/:id',
+  (req, res) => controller.userDeadDetailController.process(req, res)
+);
+
+router.delete(
+  '/delete/:id',
+  (req, res) => controller.userDeleteController.process(req, res)
+);
 
 router.post(
   '/add',

@@ -27,7 +27,7 @@ class Validator {
     );
 
     return false;
-  };
+  }
 }
 
 module.exports = Validator;

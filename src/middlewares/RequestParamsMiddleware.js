@@ -1,17 +1,17 @@
 class RequestParamsMiddleware {
   process(fields, order) {
     return function(req, res, next) {
-      const page = req.query.page ?? 1;
-      const classOrder = req.query.class ?? 'asc';
+      const page = req.query.page || 1;
+      const classOrder = req.query.class || 'asc';
   
-      let orderToClean = req.query.order ?? 'id';
-      if (!order.find((element) => element == orderToClean)) {
+      let orderToClean = req.query.order || 'id';
+      if (!order.find((element) => element === orderToClean)) {
         orderToClean = 'id';
       }
 
       let fieldsToClean = ['*'];
-      if (req.query.fields !== undefined) {
-        fieldsToClean = (req.query.fields ?? '*').split(',');
+      if (typeof req.query.fields !== 'undefined') {
+        fieldsToClean = (req.query.fields || '*').split(',');
         fieldsToClean = fields.filter(x => fieldsToClean.includes(x));
       }
   
@@ -21,7 +21,7 @@ class RequestParamsMiddleware {
       res.locals.fields = fieldsToClean;
   
       next();
-    }
+    };
   }
 }
 

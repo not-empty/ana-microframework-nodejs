@@ -5,5 +5,5 @@ class UserDeleteRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 module.exports = new UserDeleteRepository();

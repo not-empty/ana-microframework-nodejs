@@ -17,64 +17,136 @@ class BaseRepository {
   }
 
   getById(id) {
-    return this.execSingleQuery(`SELECT * FROM ${this.table} WHERE id = ? AND deleted IS NULL`, [id]);
+    return this.execSingleQuery(
+      `
+        SELECT
+          *
+        FROM
+          ${this.table}
+        WHERE
+          id = ?
+          AND deleted IS NULL
+      `, [id]
+    );
   }
 
   getDeadById(id) {
-    return this.execSingleQuery(`SELECT * FROM ${this.table} WHERE id = ? AND deleted IS NOT NULL`, [id]);
+    return this.execSingleQuery(
+      `
+        SELECT
+          *
+        FROM
+          ${this.table}
+        WHERE
+          id = ?
+          AND deleted IS NOT NULL
+      `, [id]
+    );
   }
 
   get(fields = '*', page = 1, order = 'id', classOrder = 'asc') {
     const offset = this.maxAmountRows * (page - 1);
     return this.execQuery(
-      `SELECT ${fields} FROM ${this.table} WHERE deleted IS NULL ORDER BY ${order} ${classOrder} LIMIT ${this.maxAmountRows} OFFSET ${offset}`
+      `
+        SELECT
+          ${fields}
+        FROM
+          ${this.table}
+        WHERE
+          deleted IS NULL
+        ORDER BY ${order} ${classOrder}
+        LIMIT ${this.maxAmountRows} OFFSET ${offset}
+      `
     );
   }
 
   getDead(fields = '*', page = 1, order = 'id', classOrder = 'asc') {
     const offset = this.maxAmountRows * (page - 1);
     return this.execQuery(
-      `SELECT ${fields} FROM ${this.table} WHERE deleted IS NOT NULL ORDER BY ${order} ${classOrder} LIMIT ${this.maxAmountRows} OFFSET ${offset}`
+      `
+        SELECT
+          ${fields}
+        FROM
+          ${this.table}
+        WHERE
+          deleted IS NOT NULL
+        ORDER BY ${order} ${classOrder}
+        LIMIT ${this.maxAmountRows} OFFSET ${offset}`
     );
   }
 
   bulk(ids) {
     const statement = Array(ids.length).fill('?');
-    return this.execQuery(`SELECT * FROM ${this.table} WHERE id IN(` + statement.join(',') + `) AND deleted IS NULL`, ids);
+    return this.execQuery(
+      `
+        SELECT
+          *
+        FROM
+          ${this.table}
+        WHERE
+          id IN(
+            ${statement.join(',')}
+          )
+          AND deleted IS NULL
+      `,
+      ids
+    );
   }
 
   delete(id) {
-    return this.execQuery(`UPDATE ${this.table} SET deleted = CURRENT_TIMESTAMP() WHERE id = ?`, [id]);
+    return this.execQuery(
+      `
+        UPDATE
+          ${this.table}
+        SET
+          deleted = CURRENT_TIMESTAMP()
+        WHERE
+          id = ?
+      `,
+      [id]
+    );
   }
 
   async update(id, params) {
-    const sql = `UPDATE ${this.table} SET ? WHERE id = ?`;
-    await this.execQuery(sql, [params, id]);
+    const sql =  `
+      UPDATE
+        ${this.table}
+      SET
+        ?
+      WHERE id = ?
+    `;
 
-    return params['id'];
+    await this.execQuery(
+      sql,
+      [params, id]
+    );
+
+    return params.id;
   }
 
   async insert(params) {
-    if (params.id == undefined) {
+    if (typeof params.id === 'undefined') {
       params.id = ULID.ulid();
     }
 
     const fields = Object.keys(params).join(',');
     const value = [
-      [
-        Object.values(params),
-      ],
+      [Object.values(params)],
     ];
 
-    const sql = `INSERT INTO ${this.table} (${fields}) VALUES ?`;
+    const sql = `
+      INSERT INTO ${this.table} (
+        ${fields}
+      ) VALUES ?
+    `;
     await this.execQuery(sql, value);
 
-    return params['id'];
+    return params.id;
   }
 
   verifyConnection() {
     return new Promise((res, rej) => {
-      if(this.connection.state !== 'disconnected') {
+      if (this.connection.state !== 'disconnected') {
         res(true);
       }
 
@@ -82,7 +154,7 @@ class BaseRepository {
         if (err) {
           rej(err);
         }
-      
+
         res(true);
       });
     });
@@ -111,10 +183,10 @@ class BaseRepository {
           rej(error);
         }
 
-        res(JSON.parse(JSON.stringify(results[0] ?? {})));
+        res(JSON.parse(JSON.stringify(results[0] || {})));
       });
     });
   }
 }
-  
+
 module.exports = BaseRepository;

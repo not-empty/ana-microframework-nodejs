@@ -1,5 +1,5 @@
-const validator = require('../../../core/validator');
 const { body } = require('express-validator');
+const validator = require('../../../core/validator');
 
 class UserAddValidator extends validator {
   constructor() {

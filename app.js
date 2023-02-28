@@ -14,7 +14,7 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const healthRouter = require(route.getRouteDir() + 'health');
+const healthRouter = require(`${route.getRouteDir()}health`);
 app.use('/', healthRouter);
 
 const routeList = route.getRouteList();
@@ -22,7 +22,7 @@ for (const [domain, file] of routeList) {
   const router = require(file);
 
   app.use(
-    '/' + domain,
+    `/${domain}`,
     router
   );
 }
@@ -32,7 +32,7 @@ app.use((req, res) => {
     response.send(
       null,
       [],
-      'Route not found',
+      'Route not found'
     )
   );
 });

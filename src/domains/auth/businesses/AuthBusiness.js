@@ -4,7 +4,7 @@ const jwt = require('../../../core/jwt');
 class AuthBusiness {
   process(params) {
     const context = this.getContextFromCredential(params);
-    if (context == null) {
+    if (context === null) {
       return null;
     }
 
@@ -18,10 +18,10 @@ class AuthBusiness {
 
   getContextFromCredential(params) {
     if (
-      token[params.token] != undefined &&
-      token[params.token].secret == params.secret
+      typeof token[params.token] !== 'undefined' &&
+      token[params.token].secret === params.secret
     ) {
-      return token[params.token].name
+      return token[params.token].name;
     }
 
     return null;

@@ -5,5 +5,5 @@ class UserBulkRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 module.exports = new UserBulkRepository();

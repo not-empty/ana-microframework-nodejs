@@ -5,5 +5,5 @@ const userEditValidator = require('./UserEditValidator');
 module.exports = {
   userAddValidator,
   userBulkValidator,
-  userEditValidator ,
+  userEditValidator,
 };

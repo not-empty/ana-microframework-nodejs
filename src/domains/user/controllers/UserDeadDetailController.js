@@ -8,7 +8,7 @@ class UserDeadDetailController {
   }
 
   async process(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
 
     const process = await this.userDeadDetailBusiness.process(id);
     if (!Object.keys(process).length) {
@@ -16,8 +16,8 @@ class UserDeadDetailController {
         this.response.send(
           res.locals.token,
           [],
-          'Data not found'
-        )
+          'Data not found',
+        ),
       );
 
       return false;
@@ -26,8 +26,8 @@ class UserDeadDetailController {
     res.send(
       this.response.send(
         res.locals.token,
-        process
-      )
+        process,
+      ),
     );
   }
 }
