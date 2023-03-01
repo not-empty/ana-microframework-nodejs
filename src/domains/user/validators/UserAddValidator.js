@@ -1,7 +1,7 @@
-const { body } = require('express-validator');
-const validator = require('../../../core/validator');
+import { Validator }  from '../../../core/validator.js';
+import { body } from 'express-validator';
 
-class UserAddValidator extends validator {
+class UserAddValidator extends Validator {
   constructor() {
     super([
       body('nome', 'Name is required').exists(),
@@ -10,4 +10,4 @@ class UserAddValidator extends validator {
   }
 }
 
-module.exports = new UserAddValidator();
+export default new UserAddValidator;

@@ -1,4 +1,4 @@
-const UserDeadListRepository = require('../repositories/UserDeadListRepository');
+import UserDeadListRepository from '../repositories/UserDeadListRepository.js';
 
 class UserDeadListBusiness {
   constructor() {
@@ -16,4 +16,4 @@ class UserDeadListBusiness {
   }
 }
 
-module.exports = new UserDeadListBusiness();
+export default new UserDeadListBusiness;

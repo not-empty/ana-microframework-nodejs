@@ -1,4 +1,4 @@
-const UserEditRepository = require('../repositories/UserEditRepository');
+import UserEditRepository from '../repositories/UserEditRepository.js';
 
 class UserEditBusiness {
   constructor() {
@@ -16,4 +16,4 @@ class UserEditBusiness {
   }
 }
 
-module.exports = new UserEditBusiness();
+export default new UserEditBusiness;

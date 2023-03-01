@@ -1,5 +1,5 @@
-const UserDetailBusiness = require('../businesses/UserDetailBusiness');
-const Response = require('../../../core/response');
+import { Response } from '../../../core/response.js';
+import UserDetailBusiness from '../businesses/UserDetailBusiness.js';
 
 class UserDetailController {
   constructor() {
@@ -32,4 +32,4 @@ class UserDetailController {
   }
 }
 
-module.exports = new UserDetailController();
+export default new UserDetailController;

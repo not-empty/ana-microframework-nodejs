@@ -1,57 +1,62 @@
-const express = require('express');
+import { Router } from 'express';
+import JwtMiddleware from '../src/middlewares/JwtMiddleware.js';
+import RequestParamsMiddleware from '../src/middlewares/RequestParamsMiddleware.js';
+import {
+  userAddValidator,
+  userBulkValidator,
+  userEditValidator,
+} from '../src/domains/user/validators/index.js';
+import { fields, order } from '../src/domains/user/parameters/UserParameter.js';
+import {
+  userListController,
+  userDeadListController,
+  userDetailController,
+  userDeadDetailController,
+  userDeleteController,
+  userEditController,
+  userBulkController,
+  userAddController,
+} from '../src/domains/user/controllers/index.js';
 
-const controller = require('../src/domains/user/controllers/index');
-const JwtMiddleware = require('../src/middlewares/JwtMiddleware');
-const RequestParamsMiddleware = require('../src/middlewares/RequestParamsMiddleware');
-const userParameter = require('../src/domains/user/parameters/UserParameter');
-const validator = require('../src/domains/user/validators/index');
+const usersRouter = Router();
 
-const router = express.Router();
+usersRouter.use(JwtMiddleware.process);
 
-router.use(JwtMiddleware.process);
-router.use(RequestParamsMiddleware.process(userParameter.fields, userParameter.order));
+usersRouter.use(RequestParamsMiddleware.process(fields, order));
 
-router.get('/list', (req, res) => controller.userListController.process(req, res));
-
-router.get(
-  '/dead_list',
-  (req, res) => controller.userDeadListController.process(req, res)
+usersRouter.get('/list', (req, res) => userListController.process(req, res));
+usersRouter.get('/dead_list', (req, res) =>
+  userDeadListController.process(req, res)
+);
+usersRouter.get('/detail/:id', (req, res) =>
+  userDetailController.process(req, res)
+);
+usersRouter.get('/dead_detail/:id', (req, res) =>
+  userDeadDetailController.process(req, res)
+);
+usersRouter.delete('/delete/:id', (req, res) =>
+  userDeleteController.process(req, res)
 );
 
-router.get(
-  '/detail/:id',
-  (req, res) => controller.userDetailController.process(req, res)
-);
-
-router.get(
-  '/dead_detail/:id',
-  (req, res) => controller.userDeadDetailController.process(req, res)
-);
-
-router.delete(
-  '/delete/:id',
-  (req, res) => controller.userDeleteController.process(req, res)
-);
-
-router.post(
+usersRouter.post(
   '/add',
-  validator.userAddValidator.getValidations(),
-  validator.userAddValidator.checkRules,
-  (req, res) => controller.userAddController.process(req, res)
+  userAddValidator.getValidations(),
+  userAddValidator.checkRules,
+  (req, res) => userAddController.process(req, res)
 );
 
-router.patch(
+usersRouter.patch(
   '/edit/:id',
-  validator.userEditValidator.getValidations(),
-  validator.userEditValidator.checkRules,
-  (req, res) => controller.userEditController.process(req, res)
+  userEditValidator.getValidations(),
+  userEditValidator.checkRules,
+  (req, res) => userEditController.process(req, res)
 );
 
-router.post(
+usersRouter.post(
   '/bulk',
-  validator.userBulkValidator.getValidations(),
-  validator.userBulkValidator.checkRules,
-  (req, res) => controller.userBulkController.process(req, res)
+  userBulkValidator.getValidations(),
+  userBulkValidator.checkRules,
+  (req, res) => userBulkController.process(req, res)
 );
 
-module.exports = router;
+export { usersRouter };

@@ -1,4 +1,4 @@
-const ULID = require('ulid');
+import { ulid } from 'ulid';
 
 class Response {
   constructor() {
@@ -16,7 +16,7 @@ class Response {
       data,
       profiler,
       token,
-      requestId: ULID.ulid(),
+      requestId: ulid(),
     };
 
     if (message.length > 0) {
@@ -27,4 +27,4 @@ class Response {
   }
 }
 
-module.exports = Response;
+export { Response };

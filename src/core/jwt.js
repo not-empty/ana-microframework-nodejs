@@ -1,45 +1,42 @@
-const jwt = require('jsonwebtoken');
-
+import * as jwt from 'jose';
 class Jwt {
   constructor() {
     this.expire = 60 * 15;
     this.timeToRegenerate = 5;
-    this.jwtSecret = process.env.JWT_APP_SECRET;
-    this.validUntil;
+    this.jwtSecret = new TextEncoder().encode(process.env.JWT_APP_SECRET);
   }
 
-  getToken(context) {
-    this.validUntil = new Date();
-    this.validUntil.setSeconds(this.validUntil.getSeconds() + this.expire);
+  async getToken(context) {
+    const alg = 'HS256';
 
-    return jwt.sign(
+    const validUntil = new Date();
+    validUntil.setSeconds(validUntil.getSeconds() + this.expire);
+
+    return await new jwt.SignJWT(
       {
-        exp: this.validUntil.getTime(),
-        audience: context,
-      },
-      this.jwtSecret
-    );
+        iat: Math.round(new Date().getTime() / 1000),
+        exp: Math.round(validUntil.getTime() / 1000),
+      })
+      .setProtectedHeader({ alg })
+      .setAudience(context)
+      .sign(this.jwtSecret);
   }
 
-  verifyToken(token, context) {
+  async verifyToken(token, context) {
     token = token.replace('Bearer ', '');
 
     try {
-      const data = jwt.verify(
-        token,
-        this.jwtSecret,
-        {
-          maxAge: this.expire,
-        }
-      );
+      const data = await jwt.jwtVerify(token, this.jwtSecret, {
+        audience: context
+      });
 
-      if (data.audience !== context) {
+      if (data.payload.aud !== context) {
         return false;
       }
 
-      const diffTime = this.diffMinutes(data.exp);
+      const diffTime = this.diffMinutes(data.payload.exp);
       if (diffTime <= this.timeToRegenerate) {
-        token = this.getToken(context);
+        token = await this.getToken(context);
       }
     } catch (err) {
       return false;
@@ -52,10 +49,6 @@ class Jwt {
     const diff = (expire - Date.now()) / 1000;
     return Math.abs(Math.round(diff / 60));
   }
-
-  getDateLocaleString() {
-    return this.validUntil.toLocaleString('pt-BR');
-  }
 }
 
-module.exports = new Jwt();
+export default new Jwt();

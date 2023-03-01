@@ -1,12 +1,11 @@
-const express = require('express');
+import { Router } from 'express';
+import AuthController from '../src/domains/auth/controllers/AuthController.js';
 
-const router = express.Router();
-const controllerFolder = '../src/domains/auth/controllers/';
+const authRouter = Router();
 
-const AuthController = require(`${controllerFolder}AuthController`);
-router.post(
+authRouter.post(
   '/',
   (req, res) => AuthController.process(req, res)
 );
 
-module.exports = router;
+export { authRouter };

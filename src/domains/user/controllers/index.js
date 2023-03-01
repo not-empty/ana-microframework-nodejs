@@ -1,13 +1,13 @@
-const userListController = require('./UserListController');
-const userDeadListController = require('./UserDeadListController');
-const userDetailController = require('./UserDetailController');
-const userDeadDetailController = require('./UserDeadDetailController');
-const userAddController = require('./UserAddController');
-const userBulkController = require('./UserBulkController');
-const userDeleteController = require('./UserDeleteController');
-const userEditController = require('./UserEditController');
+import userListController from './UserListController.js';
+import userDeadListController from './UserDeadListController.js';
+import userDetailController from './UserDetailController.js';
+import userDeadDetailController from './UserDeadDetailController.js';
+import userAddController from './UserAddController.js';
+import userBulkController from './UserBulkController.js';
+import userDeleteController from './UserDeleteController.js';
+import userEditController from './UserEditController.js';
 
-module.exports = {
+export {
   userListController,
   userDeadListController,
   userDetailController,

@@ -1,5 +1,5 @@
-const UserDeadDetailBusiness = require('../businesses/UserDeadDetailBusiness');
-const Response = require('../../../core/response');
+import UserDeadDetailBusiness from '../businesses/UserDeadDetailBusiness.js';
+import { Response } from '../../../core/response.js';
 
 class UserDeadDetailController {
   constructor() {
@@ -32,4 +32,4 @@ class UserDeadDetailController {
   }
 }
 
-module.exports = new UserDeadDetailController();
+export default new UserDeadDetailController;

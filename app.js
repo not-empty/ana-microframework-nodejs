@@ -1,31 +1,19 @@
-require('dotenv').config();
-
-const bodyParser = require('body-parser');
-const compression = require('compression');
-const express = require('express');
-const Response = require('./src/core/response');
-const route = require('./src/core/route');
+import 'dotenv/config';
+import express from 'express';
+import { Response } from './src/core/response.js';
+import compression from 'compression';
+import { indexRoute } from './routes/index.js';
+import BodyParser from 'body-parser';
 
 const app = express();
 const response = new Response();
 
-app.use(bodyParser.json());
+app.use(BodyParser.json());
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const healthRouter = require(`${route.getRouteDir()}health`);
-app.use('/', healthRouter);
-
-const routeList = route.getRouteList();
-for (const [domain, file] of routeList) {
-  const router = require(file);
-
-  app.use(
-    `/${domain}`,
-    router
-  );
-}
+app.use('/', indexRoute);
 
 app.use((req, res) => {
   res.status(404).send(
@@ -37,4 +25,4 @@ app.use((req, res) => {
   );
 });
 
-module.exports = app;
+export { app };

@@ -3,9 +3,9 @@
 /**
  * Module dependencies.
  */
-const app = require('../app');
-const debug = require('debug')('ana-microframework:server');
-const http = require('http');
+import { app } from '../app.js';
+import { debug } from 'node:util';
+import { createServer } from 'node:http';
 
 /**
  * Normalize a port into a number, string, or false.
@@ -22,7 +22,7 @@ const normalizePort = (val) => {
   }
 
   return false;
-}
+};
 
 /**
  * Event listener for HTTP server "error" event.
@@ -37,16 +37,18 @@ const onError = (error) => {
     : 'Port ' + port;
 
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-    default:
-      throw error;
+  case 'EACCES':
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
+  case 'EADDRINUSE':
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
+  default:
+    throw error;
   }
-}
+};
 
 /**
  * Event listener for HTTP server "listening" event.
@@ -58,7 +60,7 @@ const onListening = () => {
     : 'port ' + addr.port;
 
   debug('Listening on ' + bind);
-}
+};
 
 /**
  * Get port from environment and store in Express.
@@ -69,7 +71,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+const server = createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
