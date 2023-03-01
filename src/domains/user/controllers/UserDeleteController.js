@@ -1,4 +1,4 @@
-import { Response } from "../../../core/response.js";
+import { Response } from '../../../core/response.js';
 import UserDeleteBusiness from '../businesses/UserDeleteBusiness.js';
 
 class UserDeleteController {

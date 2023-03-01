@@ -3,7 +3,7 @@ import express from 'express';
 import { Response } from './src/core/response.js';
 import compression from 'compression';
 import { indexRoute } from './routes/index.js';
-import BodyParser from "body-parser";
+import BodyParser from 'body-parser';
 
 const app = express();
 const response = new Response();

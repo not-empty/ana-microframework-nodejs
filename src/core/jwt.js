@@ -1,4 +1,4 @@
-import * as jwt from "jose";
+import * as jwt from 'jose';
 class Jwt {
   constructor() {
     this.expire = 60 * 15;
@@ -7,7 +7,7 @@ class Jwt {
   }
 
   async getToken(context) {
-    const alg = 'HS256'
+    const alg = 'HS256';
 
     const validUntil = new Date();
     validUntil.setSeconds(validUntil.getSeconds() + this.expire);
@@ -19,11 +19,11 @@ class Jwt {
       })
       .setProtectedHeader({ alg })
       .setAudience(context)
-      .sign(this.jwtSecret)
+      .sign(this.jwtSecret);
   }
 
   async verifyToken(token, context) {
-    token = token.replace("Bearer ", "");
+    token = token.replace('Bearer ', '');
 
     try {
       const data = await jwt.jwtVerify(token, this.jwtSecret, {
@@ -39,7 +39,7 @@ class Jwt {
         token = await this.getToken(context);
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return false;
     }
 

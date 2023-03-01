@@ -1,5 +1,5 @@
-import { Validator }  from "../../../core/validator.js";
-import { body } from "express-validator";
+import { Validator }  from '../../../core/validator.js';
+import { body } from 'express-validator';
 
 class UserAddValidator extends Validator {
   constructor() {

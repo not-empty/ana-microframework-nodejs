@@ -22,7 +22,7 @@ const normalizePort = (val) => {
   }
 
   return false;
-}
+};
 
 /**
  * Event listener for HTTP server "error" event.
@@ -37,16 +37,18 @@ const onError = (error) => {
     : 'Port ' + port;
 
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-    default:
-      throw error;
+  case 'EACCES':
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
+  case 'EADDRINUSE':
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
+  default:
+    throw error;
   }
-}
+};
 
 /**
  * Event listener for HTTP server "listening" event.
@@ -58,7 +60,7 @@ const onListening = () => {
     : 'port ' + addr.port;
 
   debug('Listening on ' + bind);
-}
+};
 
 /**
  * Get port from environment and store in Express.

@@ -1,5 +1,5 @@
 import UserDeadDetailBusiness from '../businesses/UserDeadDetailBusiness.js';
-import { Response } from "../../../core/response.js";
+import { Response } from '../../../core/response.js';
 
 class UserDeadDetailController {
   constructor() {

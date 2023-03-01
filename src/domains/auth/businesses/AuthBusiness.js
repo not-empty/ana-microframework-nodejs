@@ -1,5 +1,5 @@
-import token from "../../../config/token.js";
-import jwt from "../../../core/jwt.js";
+import token from '../../../config/token.js';
+import jwt from '../../../core/jwt.js';
 
 class AuthBusiness {
   async process(params) {

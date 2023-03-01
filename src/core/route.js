@@ -1,4 +1,4 @@
-import {  readdirSync } from "node:fs";
+import {  readdirSync } from 'node:fs';
 
 class Route {
   constructor() {

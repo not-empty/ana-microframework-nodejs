@@ -1,5 +1,5 @@
-import { validationResult } from "express-validator";
-import { Response } from "./response.js";
+import { validationResult } from 'express-validator';
+import { Response } from './response.js';
 
 const response = new Response();
 
