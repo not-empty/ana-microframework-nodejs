@@ -3,9 +3,9 @@
 /**
  * Module dependencies.
  */
-const app = require('../app');
-const debug = require('debug')('ana-microframework:server');
-const http = require('http');
+import { app } from '../app.js';
+import { debug } from 'node:util';
+import { createServer } from 'node:http';
 
 /**
  * Normalize a port into a number, string, or false.
@@ -69,7 +69,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+const server = createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

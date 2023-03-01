@@ -1,15 +1,15 @@
-const Response = require('../core/response');
-const jwt = require('../core/jwt');
+import { Response } from "../core/response.js";
+import jwt from "../core/jwt.js";
 
 const response = new Response();
 
 class JwtMiddleware {
-  process(req, res, next) {
+  async process(req, res, next) {
     const authorization = req.get('Authorization');
     const context = req.get('Context');
 
     if (
-        authorization == undefined ||
+        authorization === undefined ||
         !authorization.length
     ) {
       res.status(401).send(
@@ -23,7 +23,7 @@ class JwtMiddleware {
       return false;
     }
 
-    const token = jwt.verifyToken(authorization, context);
+    const token = await jwt.verifyToken(authorization, context);
     if (token === false) {
       res.status(401).send(
         response.send(
@@ -41,4 +41,4 @@ class JwtMiddleware {
   }
 }
 
-module.exports = new JwtMiddleware();
+export default new JwtMiddleware;

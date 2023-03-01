@@ -1,8 +1,10 @@
 {
   "name": "ana-microframework",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -10,7 +12,7 @@
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "http-errors": "~1.6.3",
-    "jsonwebtoken": "^9.0.0",
+    "jose": "^4.13.0",
     "mysql": "^2.18.1",
     "ulid": "^2.3.0"
   }

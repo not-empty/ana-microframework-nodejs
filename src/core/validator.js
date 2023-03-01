@@ -1,5 +1,5 @@
-const { validationResult } = require('express-validator');
-const Response = require('./response');
+import { validationResult } from "express-validator";
+import { Response } from "./response.js";
 
 const response = new Response();
 
@@ -30,4 +30,4 @@ class Validator {
   };
 }
 
-module.exports = Validator;
+export { Validator };

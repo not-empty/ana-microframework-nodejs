@@ -1,11 +1,11 @@
-const mysql = require('mysql');
-const ULID = require('ulid');
+import { createConnection } from 'mysql';
+import { ulid } from 'ulid';
 
 class BaseRepository {
   constructor(table) {
     this.table = table;
 
-    this.connection = mysql.createConnection({
+    this.connection = createConnection({
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       user: process.env.DB_USER,
@@ -56,7 +56,7 @@ class BaseRepository {
 
   async insert(params) {
     if (params.id == undefined) {
-      params.id = ULID.ulid();
+      params.id = ulid();
     }
 
     const fields = Object.keys(params).join(',');
@@ -117,4 +117,4 @@ class BaseRepository {
   }
 }
   
-module.exports = BaseRepository;
+export { BaseRepository };

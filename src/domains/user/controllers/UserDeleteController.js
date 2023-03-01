@@ -1,5 +1,5 @@
-const UserDeleteBusiness = require('../businesses/UserDeleteBusiness');
-const Response = require('../../../core/response');
+import { Response } from "../../../core/response.js";
+import UserDeleteBusiness from '../businesses/UserDeleteBusiness.js';
 
 class UserDeleteController {
   constructor() {
@@ -27,4 +27,4 @@ class UserDeleteController {
   }
 }
 
-module.exports = new UserDeleteController();
+export default new UserDeleteController;

@@ -1,5 +1,5 @@
-const Response = require('../../../core/response');
-const UserEditBusiness = require('../businesses/UserEditBusiness');
+import { Response } from "../../../core/response.js";
+import UserEditBusiness from '../businesses/UserEditBusiness.js';
 
 class UserEditController {
   constructor() {
@@ -20,4 +20,4 @@ class UserEditController {
   }
 }
 
-module.exports = new UserEditController();
+export default new UserEditController;

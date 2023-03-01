@@ -1,4 +1,4 @@
-const UserDeleteRepository = require('../repositories/UserDeleteRepository');
+import UserDeleteRepository from '../repositories/UserDeleteRepository.js';
 
 class UserDeleteBusiness {
   constructor() {
@@ -16,4 +16,4 @@ class UserDeleteBusiness {
   }
 }
 
-module.exports = new UserDeleteBusiness();
+export default new UserDeleteBusiness;

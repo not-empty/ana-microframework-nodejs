@@ -1,5 +1,5 @@
-const UserBulkBusiness = require('../businesses/UserBulkBusiness');
-const Response = require('../../../core/response');
+import UserBulkBusiness from '../businesses/UserBulkBusiness.js';
+import { Response } from "../../../core/response.js";
 
 class UserBulkController {
   constructor() {
@@ -19,4 +19,4 @@ class UserBulkController {
   }
 }
 
-module.exports = new UserBulkController();
+export default new UserBulkController;

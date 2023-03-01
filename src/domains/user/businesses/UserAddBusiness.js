@@ -1,4 +1,4 @@
-const UserAddRepository = require('../repositories/UserAddRepository');
+import UserAddRepository from '../repositories/UserAddRepository.js';
 
 class UserAddBusiness {
   constructor() {
@@ -11,4 +11,4 @@ class UserAddBusiness {
   }
 }
 
-module.exports = new UserAddBusiness();
+export default new UserAddBusiness;

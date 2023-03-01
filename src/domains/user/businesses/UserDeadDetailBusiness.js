@@ -1,5 +1,4 @@
-const UserDeadDetailRepository = require('../repositories/UserDeadDetailRepository');
-
+import UserDeadDetailRepository from '../repositories/UserDeadDetailRepository.js';
 class UserDeadDetailBusiness {
   constructor() {
     this.userDeadDetailRepository = UserDeadDetailRepository;
@@ -11,4 +10,4 @@ class UserDeadDetailBusiness {
   }
 }
 
-module.exports = new UserDeadDetailBusiness();
+export default new UserDeadDetailBusiness;

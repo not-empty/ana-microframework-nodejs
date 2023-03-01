@@ -1,6 +1,5 @@
-const AuthBusiness = require('../businesses/AuthBusiness');
-const Response = require('../../../core/response');
-
+import { Response } from '../../../core/response.js';
+import AuthBusiness from '../businesses/AuthBusiness.js';
 class AuthController {
   constructor() {
     this.AuthBusiness = AuthBusiness;
@@ -8,7 +7,7 @@ class AuthController {
   }
 
   async process(req, res) {
-    const process = this.AuthBusiness.process(req.body);
+    const process = await this.AuthBusiness.process(req.body);
     if (process == null) {
       res.status(401).send(
         this.response.send(
@@ -30,4 +29,4 @@ class AuthController {
   }
 }
 
-module.exports = new AuthController();
+export default new AuthController;

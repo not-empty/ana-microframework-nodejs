@@ -1,4 +1,4 @@
-const fs = require('fs');
+import {  readdirSync } from "node:fs";
 
 class Route {
   constructor() {
@@ -11,7 +11,7 @@ class Route {
 
   getRouteList() {
     const routeList = new Map();
-    fs.readdirSync(this.routeDir).forEach(file => {
+    readdirSync(this.routeDir).forEach(file => {
       const domain = file.replace('.js', '');
       const router = this.routeDir + domain;
 
@@ -22,4 +22,4 @@ class Route {
   }
 }
 
-module.exports = new Route();
+export default new Route();

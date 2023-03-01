@@ -1,18 +1,18 @@
-const token = require('../../../config/token');
-const jwt = require('../../../core/jwt');
+import token from "../../../config/token.js";
+import jwt from "../../../core/jwt.js";
 
 class AuthBusiness {
-  process(params) {
+  async process(params) {
     const context = this.getContextFromCredential(params);
     if (context == null) {
       return null;
     }
 
-    const token = jwt.getToken(context);
+    const token = await jwt.getToken(context);
 
     return {
       token,
-      valid_until: jwt.getDateLocaleString(),
+      // valid_until: jwt.getDateLocaleString(),
     };
   }
 
@@ -28,4 +28,4 @@ class AuthBusiness {
   }
 }
 
-module.exports = new AuthBusiness();
+export default new AuthBusiness;

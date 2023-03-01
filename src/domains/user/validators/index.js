@@ -1,8 +1,8 @@
-const userAddValidator = require('./UserAddValidator');
-const userBulkValidator = require('./UserBulkValidator');
-const userEditValidator = require('./UserEditValidator');
+import userAddValidator from './UserAddValidator.js';
+import userBulkValidator from './UserBulkValidator.js';
+import userEditValidator from './UserEditValidator.js';
 
-module.exports = {
+export {
   userAddValidator,
   userBulkValidator,
   userEditValidator ,
