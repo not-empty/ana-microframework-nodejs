@@ -20,7 +20,7 @@ app.use((req, res) => {
     response.send(
       null,
       [],
-      'Route not found',
+      'Route not found'
     )
   );
 });

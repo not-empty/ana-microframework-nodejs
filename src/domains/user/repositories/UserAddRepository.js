@@ -5,5 +5,5 @@ class UserAddRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 export default new UserAddRepository;

@@ -13,7 +13,7 @@ class AuthController {
         this.response.send(
           null,
           [],
-          'Invalid credentials',
+          'Invalid credentials'
         )
       );
 

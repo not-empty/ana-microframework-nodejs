@@ -13,8 +13,8 @@ class UserListController {
     res.send(
       this.response.send(
         res.locals.token,
-        process
-      )
+        process,
+      ),
     );
   }
 }

@@ -5,5 +5,5 @@ class UserDeleteRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 export default new UserDeleteRepository;

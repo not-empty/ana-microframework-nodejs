@@ -5,5 +5,5 @@ class UserBulkRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 export default new UserBulkRepository;

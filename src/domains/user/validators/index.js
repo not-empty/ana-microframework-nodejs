@@ -5,5 +5,5 @@ import userEditValidator from './UserEditValidator.js';
 export {
   userAddValidator,
   userBulkValidator,
-  userEditValidator ,
+  userEditValidator,
 };

@@ -13,9 +13,9 @@ class Response {
     }
 
     const response = {
-      data: data,
-      profiler: profiler,
-      token: token,
+      data,
+      profiler,
+      token,
       requestId: ulid(),
     };
 

@@ -1,13 +1,13 @@
 import { Router } from "express";
 import JwtMiddleware from "../src/middlewares/JwtMiddleware.js";
 import RequestParamsMiddleware from "../src/middlewares/RequestParamsMiddleware.js";
-import { 
+import {
   userAddValidator,
   userBulkValidator,
   userEditValidator
 } from "../src/domains/user/validators/index.js";
 import { fields, order } from "../src/domains/user/parameters/UserParameter.js";
-import { 
+import {
   userListController,
   userDeadListController,
   userDetailController,

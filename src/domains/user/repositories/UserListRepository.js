@@ -5,5 +5,5 @@ class UserListRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 export default new UserListRepository;

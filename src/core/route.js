@@ -2,7 +2,7 @@ import {  readdirSync } from "node:fs";
 
 class Route {
   constructor() {
-    this.routeDir = process.cwd() + '/routes/';
+    this.routeDir = `${process.cwd()}/routes/`;
   }
 
   getRouteDir() {

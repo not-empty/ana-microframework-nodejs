@@ -5,7 +5,7 @@ class UserBulkBusiness {
   }
 
   process(body) {
-    const ids = body.ids;
+    const { ids } = body;
     return this.userBulkRepository.bulk(ids);
   }
 }

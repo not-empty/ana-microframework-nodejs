@@ -5,5 +5,5 @@ class UserDetailRepository extends BaseRepository {
     super('user');
   }
 }
-  
+
 export default new UserDetailRepository;

@@ -8,14 +8,14 @@ class UserEditController {
   }
 
   async process(req, res) {
-    const id = req.params.id;
+    const { id } = req.params;
     const process = await this.userEditBusiness.process(id, req.body);
 
     res.send(
       this.response.send(
         res.locals.token,
-        process
-      )
+        process,
+      ),
     );
   }
 }

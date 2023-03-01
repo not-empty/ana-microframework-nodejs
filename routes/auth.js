@@ -5,9 +5,7 @@ const authRouter = Router();
 
 authRouter.post(
   '/',
-  (req, res) => {
-    return AuthController.process(req, res);
-  }
+  (req, res) => AuthController.process(req, res)
 );
 
 export { authRouter };

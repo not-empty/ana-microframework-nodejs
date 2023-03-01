@@ -12,7 +12,7 @@ class UserEditBusiness {
     }
 
     await this.userEditRepository.update(id, params);
-    return await this.userEditRepository.getById(id);;
+    return await this.userEditRepository.getById(id);
   }
 }
 

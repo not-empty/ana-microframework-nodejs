@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "dev": "nodemon ./bin/www.js",
+    "lint": "eslint --ext .js . --fix"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -15,5 +17,9 @@
     "jose": "^4.13.0",
     "mysql": "^2.18.1",
     "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "nodemon": "^2.0.20"
   }
 }
