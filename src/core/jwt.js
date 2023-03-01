@@ -39,7 +39,6 @@ class Jwt {
         token = await this.getToken(context);
       }
     } catch (err) {
-      console.error(err);
       return false;
     }
 

@@ -11,8 +11,7 @@ class AuthBusiness {
     const token = await jwt.getToken(context);
 
     return {
-      token,
-      // valid_until: jwt.getDateLocaleString(),
+      token
     };
   }
 

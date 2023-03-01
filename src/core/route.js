@@ -22,4 +22,4 @@ class Route {
   }
 }
 
-export default new Route();
+export default new Route;
