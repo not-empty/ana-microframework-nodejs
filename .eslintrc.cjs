@@ -9,7 +9,8 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
+    jest: true
   },
   rules: {
     semi: ['error', 'always'],
