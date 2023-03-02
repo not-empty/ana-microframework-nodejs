@@ -1,5 +1,5 @@
 import UserAddBusiness from '../businesses/UserAddBusiness.js';
-import { Response } from '../../../core/response.js';
+import { Response } from '#core/response.js';
 
 class UserAddController {
   constructor() {

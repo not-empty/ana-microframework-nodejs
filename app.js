@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
-import { Response } from './src/core/response.js';
+import { Response } from '#core/response.js';
 import compression from 'compression';
-import { indexRoute } from './routes/index.js';
+import { indexRoute } from '#routes/index.js';
 import BodyParser from 'body-parser';
 
 const app = express();

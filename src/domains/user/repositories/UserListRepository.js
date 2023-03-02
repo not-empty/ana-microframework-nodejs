@@ -1,4 +1,4 @@
-import { BaseRepository } from '../../../repositories/BaseRepository.js';
+import { BaseRepository } from '#repositories/BaseRepository.js';
 
 class UserListRepository extends BaseRepository {
   constructor() {
