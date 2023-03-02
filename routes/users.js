@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import JwtMiddleware from '#middlewares/JwtMiddleware.js';
-import RequestParamsMiddleware from '#middlewares/RequestParamsMiddleware.js';
+import JwtMiddleware from '#src/middlewares/JwtMiddleware.js';
+import RequestParamsMiddleware from '#src/middlewares/RequestParamsMiddleware.js';
 import {
   userAddValidator,
   userBulkValidator,
   userEditValidator,
-} from '#domains/user/validators/index.js';
-import { fields, order } from '#domains/user/parameters/UserParameter.js';
+} from '#src/domains/user/validators/index.js';
+import { fields, order } from '#src/domains/user/parameters/UserParameter.js';
 import {
   userListController,
   userDeadListController,
@@ -16,7 +16,7 @@ import {
   userEditController,
   userBulkController,
   userAddController,
-} from '#domains/user/controllers/index.js';
+} from '#src/domains/user/controllers/index.js';
 
 const usersRouter = Router();
 

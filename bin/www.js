@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-import { app } from '../app.js';
+import { app } from '#root/app.js';
 import { debug } from 'node:util';
 import { createServer } from 'node:http';
 

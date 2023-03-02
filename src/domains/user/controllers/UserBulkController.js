@@ -1,5 +1,5 @@
 import UserBulkBusiness from '../businesses/UserBulkBusiness.js';
-import { Response } from '#core/response.js';
+import { Response } from '#src/core/response.js';
 
 class UserBulkController {
   constructor() {

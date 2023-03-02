@@ -2,13 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "#routes/*": ["routes/*"],
-      "#domains/*": ["src/domains/*"],
-      "#middlewares/*": ["src/middlewares/*"],
-      "#repositories/*": ["src/repositories/*"],
-      "#config/*": ["src/config/*"],
-      "#core/*": ["src/core/*"]
+      "#src/*": ["./src/*"],
+      "#root/*": ["./*"]
     }
-  },
-  "exclude": ["node_modules", "**/node_modules", "dist"]
+  }
 }

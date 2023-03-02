@@ -1,4 +1,4 @@
-import { BaseRepository } from '#repositories/BaseRepository.js';
+import { BaseRepository } from '#src/repositories/BaseRepository.js';
 
 class UserDeadDetailRepository extends BaseRepository {
   constructor() {

@@ -1,4 +1,4 @@
-import { Validator }  from '#core/validator.js';
+import { Validator }  from '#src/core/validator.js';
 import { body } from 'express-validator';
 
 class UserAddValidator extends Validator {

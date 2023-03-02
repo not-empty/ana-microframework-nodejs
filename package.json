@@ -4,12 +4,8 @@
   "private": true,
   "type": "module",
   "imports": {
-    "#routes/*": "./routes/*",
-    "#domains/*": "./src/domains/*",
-    "#middlewares/*": "./src/middlewares/*",
-    "#repositories/*": "./src/repositories/*",
-    "#config/*": "./src/config/*",
-    "#core/*": "./src/core/*"
+    "#src/*": "./src/*",
+    "#root/*": "./*"
   },
   "scripts": {
     "start": "node ./bin/www.js",
