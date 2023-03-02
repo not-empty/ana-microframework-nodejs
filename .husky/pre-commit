@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run pre-commit
+docker exec ana-microservice-nodejs npm run lint
+docker exec ana-microservice-nodejs npm run test
