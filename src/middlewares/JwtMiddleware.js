@@ -1,5 +1,5 @@
-import { Response } from '../core/response.js';
-import jwt from '../core/jwt.js';
+import { Response } from '#src/core/response.js';
+import jwt from '#src/core/jwt.js';
 
 const response = new Response();
 

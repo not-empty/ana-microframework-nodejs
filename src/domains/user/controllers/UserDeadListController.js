@@ -1,4 +1,4 @@
-import { Response } from '../../../core/response.js';
+import { Response } from '#src/core/response.js';
 import UserDeadListBusiness from '../businesses/UserDeadListBusiness.js';
 
 class UserDeadListController {
