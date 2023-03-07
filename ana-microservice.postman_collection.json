@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "22e1091b-dfd0-48fe-8bc3-d17887a90808",
+		"_postman_id": "2ba2537e-f3f5-4cd6-9247-0e5e531ea466",
 		"name": "ana-microservice",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -476,7 +476,7 @@
 						"type": "text/javascript",
 						"exec": [
 							"pm.sendRequest({",
-							"    url: 'http://' + pm.environment.get(\"host\") + ':' + pm.environment.get(\"port\") + '/auth',",
+							"    url: pm.environment.get(\"address\") + '/auth',",
 							"    method: 'POST',",
 							"    header: {",
 							"        'content-type': 'application/json',",

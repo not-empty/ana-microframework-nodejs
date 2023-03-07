@@ -3,12 +3,7 @@ import HealthController from '#src/domains/health/controllers/HealthController.j
 
 const healthRouter = Router();
 
-healthRouter.get('/', (req, res) => {
-  return HealthController.process(req, res);
-});
-
-healthRouter.get('/health', (req, res) => {
-  return HealthController.process(req, res);
-});
+healthRouter.get('/', (req, res) => new HealthController().process(req, res));
+healthRouter.get('/health', (req, res) => new HealthController().process(req, res));
 
 export { healthRouter };

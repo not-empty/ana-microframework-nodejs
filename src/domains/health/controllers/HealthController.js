@@ -9,4 +9,4 @@ class HealthController {
   }
 }
 
-export default new HealthController;
+export default HealthController;

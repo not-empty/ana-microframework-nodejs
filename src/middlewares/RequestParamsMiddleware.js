@@ -25,4 +25,4 @@ class RequestParamsMiddleware {
   }
 }
 
-export default new RequestParamsMiddleware();
+export default RequestParamsMiddleware;

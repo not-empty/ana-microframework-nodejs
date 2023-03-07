@@ -2,7 +2,7 @@ import UserAddRepository from '../repositories/UserAddRepository.js';
 
 class UserAddBusiness {
   constructor() {
-    this.userAddRepository = UserAddRepository;
+    this.userAddRepository = new UserAddRepository();
   }
 
   async process(body) {
@@ -11,4 +11,4 @@ class UserAddBusiness {
   }
 }
 
-export default new UserAddBusiness;
+export default UserAddBusiness;

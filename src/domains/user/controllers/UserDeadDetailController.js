@@ -1,9 +1,9 @@
 import UserDeadDetailBusiness from '../businesses/UserDeadDetailBusiness.js';
-import { Response } from '#src/core/response.js';
+import Response from '#src/core/response.js';
 
 class UserDeadDetailController {
   constructor() {
-    this.userDeadDetailBusiness = UserDeadDetailBusiness;
+    this.userDeadDetailBusiness = new UserDeadDetailBusiness();
     this.response = new Response();
   }
 
@@ -32,4 +32,4 @@ class UserDeadDetailController {
   }
 }
 
-export default new UserDeadDetailController;
+export default UserDeadDetailController;

@@ -1,9 +1,9 @@
 import UserBulkBusiness from '../businesses/UserBulkBusiness.js';
-import { Response } from '#src/core/response.js';
+import Response from '#src/core/response.js';
 
 class UserBulkController {
   constructor() {
-    this.userBulkBusiness = UserBulkBusiness;
+    this.userBulkBusiness = new UserBulkBusiness();
     this.response = new Response();
   }
 
@@ -19,4 +19,4 @@ class UserBulkController {
   }
 }
 
-export default new UserBulkController;
+export default UserBulkController;

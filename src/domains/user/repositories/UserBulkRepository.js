@@ -6,4 +6,4 @@ class UserBulkRepository extends BaseRepository {
   }
 }
 
-export default new UserBulkRepository;
+export default UserBulkRepository;

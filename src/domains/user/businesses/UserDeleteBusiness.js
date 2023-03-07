@@ -2,7 +2,7 @@ import UserDeleteRepository from '../repositories/UserDeleteRepository.js';
 
 class UserDeleteBusiness {
   constructor() {
-    this.userDeleteRepository = UserDeleteRepository;
+    this.userDeleteRepository = new UserDeleteRepository();
   }
 
   async process(id) {
@@ -16,4 +16,4 @@ class UserDeleteBusiness {
   }
 }
 
-export default new UserDeleteBusiness;
+export default UserDeleteBusiness;

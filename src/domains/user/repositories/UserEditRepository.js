@@ -6,4 +6,4 @@ class UserEditRepository extends BaseRepository {
   }
 }
 
-export default new UserEditRepository;
+export default UserEditRepository;

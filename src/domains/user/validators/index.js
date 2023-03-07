@@ -1,9 +1,9 @@
-import userAddValidator from './UserAddValidator.js';
-import userBulkValidator from './UserBulkValidator.js';
-import userEditValidator from './UserEditValidator.js';
+import UserAddValidator from './UserAddValidator.js';
+import UserBulkValidator from './UserBulkValidator.js';
+import UserEditValidator from './UserEditValidator.js';
 
 export {
-  userAddValidator,
-  userBulkValidator,
-  userEditValidator,
+  UserAddValidator,
+  UserBulkValidator,
+  UserEditValidator,
 };

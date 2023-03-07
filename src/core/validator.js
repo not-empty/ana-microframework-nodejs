@@ -1,10 +1,9 @@
 import { validationResult } from 'express-validator';
-import { Response } from './response.js';
-
-const response = new Response();
+import Response from './response.js';
 
 class Validator {
   constructor(rules) {
+    this.response = new Response();
     this.validationBodyRules = rules;
   }
 
@@ -19,7 +18,7 @@ class Validator {
     }
 
     res.status(422).send(
-      response.send(
+      this.response.send(
         res.locals.token,
         errors.array(),
         'A validation error occurrs'
@@ -30,4 +29,4 @@ class Validator {
   }
 }
 
-export { Validator };
+export default Validator;

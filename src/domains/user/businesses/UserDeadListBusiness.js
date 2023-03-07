@@ -2,7 +2,7 @@ import UserDeadListRepository from '../repositories/UserDeadListRepository.js';
 
 class UserDeadListBusiness {
   constructor() {
-    this.userDeadListRepository = UserDeadListRepository;
+    this.userDeadListRepository = new UserDeadListRepository();
   }
 
   process(query) {
@@ -16,4 +16,4 @@ class UserDeadListBusiness {
   }
 }
 
-export default new UserDeadListBusiness;
+export default UserDeadListBusiness;

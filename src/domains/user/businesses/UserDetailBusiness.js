@@ -1,7 +1,8 @@
 import UserDetailRepository from '../repositories/UserDetailRepository.js';
+
 class UserDetailBusiness {
   constructor() {
-    this.userDetailRepository = UserDetailRepository;
+    this.userDetailRepository = new UserDetailRepository();
   }
 
   process(id) {
@@ -10,4 +11,4 @@ class UserDetailBusiness {
   }
 }
 
-export default new UserDetailBusiness;
+export default UserDetailBusiness;

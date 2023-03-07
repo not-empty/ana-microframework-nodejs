@@ -1,4 +1,5 @@
 import * as jwt from 'jose';
+
 class Jwt {
   constructor() {
     this.expire = 60 * 15;

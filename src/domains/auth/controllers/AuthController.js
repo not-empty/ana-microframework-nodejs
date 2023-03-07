@@ -1,13 +1,14 @@
-import { Response } from '#src/core/response.js';
+import Response from '#src/core/response.js';
 import AuthBusiness from '../businesses/AuthBusiness.js';
+
 class AuthController {
   constructor() {
-    this.AuthBusiness = AuthBusiness;
+    this.authBusiness = new AuthBusiness();
     this.response = new Response();
   }
 
   async process(req, res) {
-    const process = await this.AuthBusiness.process(req.body);
+    const process = await this.authBusiness.process(req.body);
     if (process === null) {
       res.status(401).send(
         this.response.send(
@@ -29,4 +30,4 @@ class AuthController {
   }
 }
 
-export default new AuthController;
+export default AuthController;
