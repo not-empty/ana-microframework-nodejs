@@ -1,4 +1,5 @@
 import UserDeadDetailRepository from '../repositories/UserDeadDetailRepository.js';
+
 class UserDeadDetailBusiness {
   constructor() {
     this.userDeadDetailRepository = new UserDeadDetailRepository();

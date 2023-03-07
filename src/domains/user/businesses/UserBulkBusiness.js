@@ -1,4 +1,5 @@
 import UserBulkRepository from '../repositories/UserBulkRepository.js';
+
 class UserBulkBusiness {
   constructor() {
     this.userBulkRepository = new UserBulkRepository();

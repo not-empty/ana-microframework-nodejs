@@ -1,4 +1,5 @@
 import UserDetailRepository from '../repositories/UserDetailRepository.js';
+
 class UserDetailBusiness {
   constructor() {
     this.userDetailRepository = new UserDetailRepository();
