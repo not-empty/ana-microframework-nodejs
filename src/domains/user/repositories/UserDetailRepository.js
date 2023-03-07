@@ -6,4 +6,4 @@ class UserDetailRepository extends BaseRepository {
   }
 }
 
-export default new UserDetailRepository;
+export default UserDetailRepository;

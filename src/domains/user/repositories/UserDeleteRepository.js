@@ -6,4 +6,4 @@ class UserDeleteRepository extends BaseRepository {
   }
 }
 
-export default new UserDeleteRepository;
+export default UserDeleteRepository;

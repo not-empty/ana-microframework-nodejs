@@ -27,4 +27,4 @@ class AuthBusiness {
   }
 }
 
-export default new AuthBusiness;
+export default AuthBusiness;

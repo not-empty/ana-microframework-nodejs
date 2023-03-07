@@ -27,4 +27,4 @@ class Response {
   }
 }
 
-export { Response };
+export default Response;

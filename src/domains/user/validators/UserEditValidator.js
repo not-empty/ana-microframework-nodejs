@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import { Validator } from '#src/core/validator.js';
+import Validator from '#src/core/validator.js';
 
 class UserBulkValidator extends Validator {
   constructor() {
@@ -10,4 +10,4 @@ class UserBulkValidator extends Validator {
   }
 }
 
-export default new UserBulkValidator;
+export default UserBulkValidator;

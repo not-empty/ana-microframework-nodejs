@@ -6,4 +6,4 @@ class UserAddRepository extends BaseRepository {
   }
 }
 
-export default new UserAddRepository;
+export default UserAddRepository;

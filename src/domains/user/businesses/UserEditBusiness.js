@@ -2,7 +2,7 @@ import UserEditRepository from '../repositories/UserEditRepository.js';
 
 class UserEditBusiness {
   constructor() {
-    this.userEditRepository = UserEditRepository;
+    this.userEditRepository = new UserEditRepository();
   }
 
   async process(id, params) {
@@ -16,4 +16,4 @@ class UserEditBusiness {
   }
 }
 
-export default new UserEditBusiness;
+export default UserEditBusiness;

@@ -1,9 +1,9 @@
-import { Response } from '#src/core/response.js';
+import Response from '#src/core/response.js';
 import UserEditBusiness from '../businesses/UserEditBusiness.js';
 
 class UserEditController {
   constructor() {
-    this.userEditBusiness = UserEditBusiness;
+    this.userEditBusiness = new UserEditBusiness();
     this.response = new Response();
   }
 
@@ -20,4 +20,4 @@ class UserEditController {
   }
 }
 
-export default new UserEditController;
+export default UserEditController;

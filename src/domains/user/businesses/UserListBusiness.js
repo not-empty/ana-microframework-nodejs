@@ -2,7 +2,7 @@ import UserListRepository from '../repositories/UserListRepository.js';
 
 class UserDetailBusiness {
   constructor() {
-    this.userListRepository = UserListRepository;
+    this.userListRepository = new UserListRepository();
   }
 
   process(query) {
@@ -16,4 +16,4 @@ class UserDetailBusiness {
   }
 }
 
-export default new UserDetailBusiness;
+export default UserDetailBusiness;

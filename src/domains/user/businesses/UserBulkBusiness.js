@@ -1,7 +1,7 @@
 import UserBulkRepository from '../repositories/UserBulkRepository.js';
 class UserBulkBusiness {
   constructor() {
-    this.userBulkRepository = UserBulkRepository;
+    this.userBulkRepository = new UserBulkRepository();
   }
 
   process(body) {
@@ -10,4 +10,4 @@ class UserBulkBusiness {
   }
 }
 
-export default new UserBulkBusiness;
+export default UserBulkBusiness;

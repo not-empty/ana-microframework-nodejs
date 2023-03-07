@@ -1,9 +1,9 @@
-import { Response } from '#src/core/response.js';
+import Response from '#src/core/response.js';
 import UserDeleteBusiness from '../businesses/UserDeleteBusiness.js';
 
 class UserDeleteController {
   constructor() {
-    this.userDeleteBusiness = UserDeleteBusiness;
+    this.userDeleteBusiness = new UserDeleteBusiness();
     this.response = new Response();
   }
 
@@ -27,4 +27,4 @@ class UserDeleteController {
   }
 }
 
-export default new UserDeleteController;
+export default UserDeleteController;

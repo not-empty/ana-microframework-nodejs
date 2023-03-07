@@ -1,19 +1,19 @@
-import userListController from './UserListController.js';
-import userDeadListController from './UserDeadListController.js';
-import userDetailController from './UserDetailController.js';
-import userDeadDetailController from './UserDeadDetailController.js';
-import userAddController from './UserAddController.js';
-import userBulkController from './UserBulkController.js';
-import userDeleteController from './UserDeleteController.js';
-import userEditController from './UserEditController.js';
+import UserListController from './UserListController.js';
+import UserDeadListController from './UserDeadListController.js';
+import UserDetailController from './UserDetailController.js';
+import UserDeadDetailController from './UserDeadDetailController.js';
+import UserAddController from './UserAddController.js';
+import UserBulkController from './UserBulkController.js';
+import UserDeleteController from './UserDeleteController.js';
+import UserEditController from './UserEditController.js';
 
 export {
-  userListController,
-  userDeadListController,
-  userDetailController,
-  userDeadDetailController,
-  userAddController,
-  userBulkController,
-  userDeleteController,
-  userEditController,
+  UserListController,
+  UserDeadListController,
+  UserDetailController,
+  UserDeadDetailController,
+  UserAddController,
+  UserBulkController,
+  UserDeleteController,
+  UserEditController,
 };

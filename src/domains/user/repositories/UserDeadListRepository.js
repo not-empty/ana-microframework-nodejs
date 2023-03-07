@@ -6,4 +6,4 @@ class UserDeadListRepository extends BaseRepository {
   }
 }
 
-export default new UserDeadListRepository;
+export default UserDeadListRepository;

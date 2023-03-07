@@ -6,4 +6,4 @@ class UserListRepository extends BaseRepository {
   }
 }
 
-export default new UserListRepository;
+export default UserListRepository;
