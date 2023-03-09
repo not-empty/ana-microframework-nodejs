@@ -1,5 +1,5 @@
 import token from '#src/config/token.js';
-import jwt from '#src/core/jwt.js';
+import Jwt from '#src/core/jwt.js';
 
 class AuthBusiness {
   async process(params) {
@@ -8,10 +8,12 @@ class AuthBusiness {
       return null;
     }
 
+    const jwt = new Jwt();
     const token = await jwt.getToken(context);
 
     return {
-      token
+      token,
+      valid_until: jwt.getDateLocaleString(),
     };
   }
 

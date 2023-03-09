@@ -5,18 +5,18 @@ class Jwt {
     this.expire = 60 * 15;
     this.timeToRegenerate = 5;
     this.jwtSecret = new TextEncoder().encode(process.env.JWT_APP_SECRET);
+    this.validUntil = new Date();
   }
 
   async getToken(context) {
     const alg = 'HS256';
 
-    const validUntil = new Date();
-    validUntil.setSeconds(validUntil.getSeconds() + this.expire);
+    this.validUntil.setSeconds(this.validUntil.getSeconds() + this.expire);
 
     return await new jwt.SignJWT(
       {
         iat: Math.round(new Date().getTime() / 1000),
-        exp: Math.round(validUntil.getTime() / 1000),
+        exp: Math.round(this.validUntil.getTime() / 1000),
       })
       .setProtectedHeader({ alg })
       .setAudience(context)
@@ -50,6 +50,10 @@ class Jwt {
     const diff = (expire - Date.now()) / 1000;
     return Math.abs(Math.round(diff / 60));
   }
+
+  getDateLocaleString() {
+    return this.validUntil.toLocaleString('pt-BR');
+  }
 }
 
-export default new Jwt();
+export default Jwt;
