@@ -14,7 +14,8 @@
     "lint:fix": "eslint --ext .js . --fix",
     "test": "jest --config jest.config.mjs",
     "test:cover": "jest --config jest.config.mjs --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "create:domain": "node ./kernel/commands/createDomain.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
