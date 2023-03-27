@@ -2,7 +2,7 @@ import {
   fields,
   order
 } from '#src/domains/$__domain_low__$/parameters/$__domain__$ListParameter.js';
-import { filters } from '#src/domains/$__domain_low__$/filters/$__domain__$Filter.js';
+import { filter } from '#src/domains/$__domain_low__$/filters/$__domain__$Filter.js';
 import FilterMiddleware from '#src/middlewares/FilterMiddleware.js';
 import RequestParamsMiddleware from '#src/middlewares/RequestParamsMiddleware.js';
 import JwtMiddleware from '#src/middlewares/JwtMiddleware.js';
@@ -27,7 +27,7 @@ const $__domain_low__$Router = Router();
 
 $__domain_low__$Router.use(new JwtMiddleware().process);
 $__domain_low__$Router.use(new RequestParamsMiddleware().process(fields, order));
-$__domain_low__$Router.use(new FilterMiddleware().process(filters));
+$__domain_low__$Router.use(new FilterMiddleware().process(filter));
 
 $__domain_low__$Router.get(
   '/list',
