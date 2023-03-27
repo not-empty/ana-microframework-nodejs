@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-len
 export const fields = [
   'id',
-  'FIELD',
+  'field',
   'created',
   'modified',
   'deleted',
