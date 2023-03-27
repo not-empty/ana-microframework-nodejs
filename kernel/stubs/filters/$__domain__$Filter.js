@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { filters } from '#src/config/filterType.js';
 
 export const filter = {

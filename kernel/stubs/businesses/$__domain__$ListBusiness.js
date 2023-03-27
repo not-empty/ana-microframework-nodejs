@@ -11,7 +11,8 @@ class $__domain__$DetailBusiness {
       query.fields,
       query.page,
       query.order,
-      query.class
+      query.class,
+      query.filters
     );
     return result;
   }
