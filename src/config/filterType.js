@@ -1,0 +1,20 @@
+export const filters = {
+  FILTER_EQUAL: 'eql',
+  FILTER_GREATER_THAN: 'gt',
+  FILTER_GREATER_THAN_OR_EQUAL: 'gte',
+  FILTER_LESS_THAN: 'lt',
+  FILTER_LESS_THAN_OR_EQUAL: 'lte',
+  FILTER_LIKE: 'lik',
+  FILTER_NOT_EQUAL: 'neq',
+  FILTER_NOT_NULL: 'nnu',
+  FILTER_NULL: 'nul',
+  FILTER_TYPE_MAP: {
+    FILTER_EQUAL: '=',
+    FILTER_GREATER_THAN: '>',
+    FILTER_GREATER_THAN_OR_EQUAL: '>=',
+    FILTER_LESS_THAN: '<',
+    FILTER_LESS_THAN_OR_EQUAL: '<=',
+    FILTER_LIKE: 'like',
+    FILTER_NOT_EQUAL: '<>',
+  },
+};

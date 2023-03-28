@@ -1,5 +1,6 @@
 import { createConnection } from 'mysql';
 import { ulid } from 'ulid';
+import { filters } from '#src/config/filterType.js';
 
 class BaseRepository {
   constructor(table) {
@@ -44,8 +45,10 @@ class BaseRepository {
     );
   }
 
-  get(fields = '*', page = 1, order = 'id', classOrder = 'asc') {
+  get(fields = '*', page = 1, order = 'id', classOrder = 'asc', filter = {}) {
     const offset = this.maxAmountRows * (page - 1);
+    const { conditions, values } = this.applyFilters(filter);
+
     return this.execQuery(
       `
         SELECT
@@ -54,14 +57,17 @@ class BaseRepository {
           ${this.table}
         WHERE
           deleted IS NULL
+          ${conditions}
         ORDER BY ${order} ${classOrder}
         LIMIT ${this.maxAmountRows} OFFSET ${offset}
-      `
+      `, values
     );
   }
 
-  getDead(fields = '*', page = 1, order = 'id', classOrder = 'asc') {
+  getDead(fields = '*', page = 1, order = 'id', classOrder = 'asc', filter = {}) {
     const offset = this.maxAmountRows * (page - 1);
+    const { conditions, values } = this.applyFilters(filter);
+
     return this.execQuery(
       `
         SELECT
@@ -70,8 +76,10 @@ class BaseRepository {
           ${this.table}
         WHERE
           deleted IS NOT NULL
+          ${conditions}
         ORDER BY ${order} ${classOrder}
-        LIMIT ${this.maxAmountRows} OFFSET ${offset}`
+        LIMIT ${this.maxAmountRows} OFFSET ${offset}
+      `, values
     );
   }
 
@@ -142,6 +150,33 @@ class BaseRepository {
     await this.execQuery(sql, value);
 
     return params.id;
+  }
+
+  applyFilters(filterData) {
+    let conditions = '';
+    const values = [];
+    for (const [key, value] of filterData) {
+      const operator = this.getOperator(value.type);
+
+      conditions += ` AND ${key} ${operator} ?`;
+
+      if (value.type == filters.FILTER_LIKE) {
+        values.push(`%${value.data}%`);
+        continue;
+      }
+
+      values.push(value.data);
+    }
+
+    return {
+      conditions: conditions,
+      values: values,
+    }
+  }
+
+  getOperator(type) {
+    const key = Object.keys(filters.FILTER_TYPE_MAP).find(key => filters[key] === type);
+    return filters.FILTER_TYPE_MAP[key];
   }
 
   verifyConnection() {

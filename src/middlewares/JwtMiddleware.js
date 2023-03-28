@@ -1,12 +1,11 @@
 import Response from '#src/core/response.js';
-import jwt from '#src/core/jwt.js';
+import Jwt from '#src/core/jwt.js';
 
 class JwtMiddleware {
-  constructor() {
-    this.response = new Response();
-  }
-
   async process(req, res, next) {
+    const response = new Response();
+    const jwt = new Jwt();
+
     const authorization = req.get('Authorization');
     const context = req.get('Context');
 
@@ -15,7 +14,7 @@ class JwtMiddleware {
       !authorization.length
     ) {
       res.status(401).send(
-        this.response.send(
+        response.send(
           null,
           [],
           'Invalid token or expired token',
@@ -28,7 +27,7 @@ class JwtMiddleware {
     const token = await jwt.verifyToken(authorization, context);
     if (token === false) {
       res.status(401).send(
-        this.response.send(
+        response.send(
           null,
           [],
           'Invalid token or expired token',
