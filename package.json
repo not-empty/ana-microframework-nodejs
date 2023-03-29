@@ -12,8 +12,8 @@
     "dev": "nodemon ./bin/www.js",
     "lint": "eslint --ext .js",
     "lint:fix": "eslint --ext .js . --fix",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.mjs",
-    "test:cover": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.mjs --coverage",
+    "test": "jest --config jest.config.mjs",
+    "test:cover": "jest --config jest.config.mjs --coverage",
     "prepare": "husky install",
     "create:domain": "node ./kernel/commands/createDomain.js"
   },
@@ -28,6 +28,9 @@
     "ulid": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.5.0",
     "eslint": "^8.35.0",
     "husky": "^8.0.3",
     "jest": "^29.4.3",
