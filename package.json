@@ -12,8 +12,8 @@
     "dev": "nodemon ./bin/www.js",
     "lint": "eslint --ext .js",
     "lint:fix": "eslint --ext .js . --fix",
-    "test": "jest --config jest.config.mjs",
-    "test:cover": "jest --config jest.config.mjs --coverage",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.mjs",
+    "test:cover": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.mjs --coverage",
     "prepare": "husky install",
     "create:domain": "node ./kernel/commands/createDomain.js"
   },
