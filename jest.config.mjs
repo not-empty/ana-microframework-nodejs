@@ -5,4 +5,8 @@ export default {
   coverageProvider: 'v8',
   testEnvironment: 'node',
   testMatch: ['<rootDir>/**/*.spec.js'],
+  coveragePathIgnorePatterns: [
+    './src/config',
+    'node_modules'
+  ]
 };

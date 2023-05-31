@@ -1,4 +1,5 @@
 import Response from '#src/core/response.js';
+
 import AuthBusiness from '../businesses/AuthBusiness.js';
 
 class AuthController {
