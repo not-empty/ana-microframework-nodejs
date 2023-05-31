@@ -1,5 +1,5 @@
 # #!/usr/bin/env sh
-# . "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/_/husky.sh"
 
-# docker exec ana-microservice-nodejs npm run lint
-# docker exec ana-microservice-nodejs npm run test
+docker exec ana-microservice-nodejs npm run lint
+docker exec ana-microservice-nodejs npm run test
