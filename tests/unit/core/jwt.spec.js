@@ -1,32 +1,4 @@
 import Jwt from '#src/core/jwt.js';
-import * as jwt from 'jose';
-
-jest.mock('jose', () => ({
-  SignJWT: jest.fn().mockReturnThis(),
-  setProtectedHeader: jest.fn().mockReturnThis(),
-  setAudience: jest.fn().mockReturnThis(),
-  sign: jest.fn().mockResolvedValue('mockedToken'),
-  jwtVerify: jest.fn().mockResolvedValue({ payload: { aud: 'mockedContext', exp: 1234567890 } }),
-}));
-
-
-class JwtMock {
-  SignJWT(_) {
-    return this;
-  }
-
-  setProtectedHeader(_) {
-    return this;
-  }
-
-  setAudience(_) {
-    return this;
-  }
-
-  sign(_) {
-    return '123';
-  }
-}
 
 describe('Jwt', () => {
   let originalDateNow;
@@ -43,21 +15,54 @@ describe('Jwt', () => {
 
   describe('getToken', () => {
     test('should return a signed JWT token', async () => {
-      // const mock = new JwtMock();
-      // jest.mock('jose', (mock) => () => mock);
+      const jwtInstance = new Jwt();
+      jwtInstance.jwtSecret = 'secretEncoded';
+      jwtInstance.getSignJWT = jest.fn(function () {
+        return {
+          setProtectedHeader: function ({ alg }) {
+            expect(alg).toEqual('HS256');
+            return this;
+          },
+          setAudience: function (context) {
+            expect(context).toEqual('mockedContext');
+            return this;
+          },
+          sign: function (jwtSecret) {
+            expect(jwtSecret).toEqual('secretEncoded');
+            return 'signToken';
+          }
+        }
+      });
+      const token = await jwtInstance.getToken('mockedContext');
+      expect(jwtInstance.getSignJWT).toHaveBeenCalledTimes(1);
+      expect(token).toEqual('signToken');
+    });
+  });
 
-      // const jwtInstance = new Jwt();
-      // const token = await jwtInstance.getToken('mockedContext');
-  
-      // expect(jwt.SignJWT).toHaveBeenCalledWith({
-      //   iat: 1625520000,
-      //   exp: 1625520900,
-      // });
-      // expect(jwt.setProtectedHeader).toHaveBeenCalledWith({ alg: 'HS256' });
-      // expect(jwt.setAudience).toHaveBeenCalledWith('mockedContext');
-      // expect(jwt.sign).toHaveBeenCalledWith(new Uint8Array([109, 111, 99, 107, 101, 100, 83, 101, 99, 114, 101, 116]), undefined);
-      // expect(token).toBe('mockedToken');
-      expect(true).toEqual(true);
+
+  describe('verifyToken', () => {
+    test('should return a signed JWT token', async () => {
+      const jwtInstance = new Jwt();
+      jwtInstance.jwtSecret = 'secretEncoded';
+      jwtInstance.getSignJWT = jest.fn(function () {
+        return {
+          setProtectedHeader: function ({ alg }) {
+            expect(alg).toEqual('HS256');
+            return this;
+          },
+          setAudience: function (context) {
+            expect(context).toEqual('mockedContext');
+            return this;
+          },
+          sign: function (jwtSecret) {
+            expect(jwtSecret).toEqual('secretEncoded');
+            return 'signToken';
+          }
+        }
+      });
+      const token = await jwtInstance.getToken('mockedContext');
+      expect(jwtInstance.getSignJWT).toHaveBeenCalledTimes(1);
+      expect(token).toEqual('signToken');
     });
   });
 });
