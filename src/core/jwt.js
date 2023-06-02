@@ -10,10 +10,9 @@ class Jwt {
 
   async getToken(context) {
     const alg = 'HS256';
-
     this.validUntil.setSeconds(this.validUntil.getSeconds() + this.expire);
 
-    return await this.getSignJWT(
+    return await new jwt.SignJWT(
       {
         iat: Math.round(new Date().getTime() / 1000),
         exp: Math.round(this.validUntil.getTime() / 1000),
@@ -27,7 +26,7 @@ class Jwt {
     token = token.replace('Bearer ', '');
 
     try {
-      const data = await this.getJwtVerify(token, this.jwtSecret, {
+      const data = await jwt.jwtVerify(token, this.jwtSecret, {
         audience: context
       });
 
@@ -53,14 +52,6 @@ class Jwt {
 
   getDateLocaleString() {
     return this.validUntil.toLocaleString('pt-BR');
-  }
-
-  getSignJWT(payload) {
-    return new jwt.SignJWT(payload);
-  }
-
-  async getJwtVerify(token, jwtSecret, options) {
-    return jwt.jwtVerify(token, jwtSecret, options);
   }
 }
 

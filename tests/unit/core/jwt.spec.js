@@ -1,68 +1,102 @@
 import Jwt from '#src/core/jwt.js';
 
-describe('Jwt', () => {
-  let originalDateNow;
+const mockSign = jest.fn(() => 'signToken');
 
-  beforeAll(() => {
-    originalDateNow = Date.now;
-    global.Date.now = jest.fn().mockReturnValue(1625520000000); // Mock a fixed date (July 6, 2021 00:00:00 UTC)
-    process.env.JWT_APP_SECRET = 'mockedSecret';
+const jwt = require('jose');
+jest.mock('jose', () => {
+  return {
+    SignJWT: jest.fn(() => {
+      return {
+        setProtectedHeader: jest.fn().mockReturnThis(),
+        setAudience: jest.fn().mockReturnThis(),
+        sign: mockSign,
+      }
+    }),
+    jwtVerify: jest.fn(),
+  }
+});
+
+describe('Jwt', () => {
+  let jwtInstance;
+
+  beforeEach(() => {
+    jwtInstance = new Jwt();
   });
 
   afterAll(() => {
-    global.Date.now = originalDateNow;
+    jest.clearAllMocks();
   });
 
   describe('getToken', () => {
     test('should return a signed JWT token', async () => {
-      const jwtInstance = new Jwt();
       jwtInstance.jwtSecret = 'secretEncoded';
-      jwtInstance.getSignJWT = jest.fn(function () {
-        return {
-          setProtectedHeader: function ({ alg }) {
-            expect(alg).toEqual('HS256');
-            return this;
-          },
-          setAudience: function (context) {
-            expect(context).toEqual('mockedContext');
-            return this;
-          },
-          sign: function (jwtSecret) {
-            expect(jwtSecret).toEqual('secretEncoded');
-            return 'signToken';
-          }
-        }
-      });
+
       const token = await jwtInstance.getToken('mockedContext');
-      expect(jwtInstance.getSignJWT).toHaveBeenCalledTimes(1);
-      expect(token).toEqual('signToken');
+      expect(token).toEqual(mockSign());
+      expect(jwt.SignJWT).toHaveBeenCalledTimes(1);
     });
   });
 
-
   describe('verifyToken', () => {
-    test('should return a signed JWT token', async () => {
-      const jwtInstance = new Jwt();
-      jwtInstance.jwtSecret = 'secretEncoded';
-      jwtInstance.getSignJWT = jest.fn(function () {
-        return {
-          setProtectedHeader: function ({ alg }) {
-            expect(alg).toEqual('HS256');
-            return this;
-          },
-          setAudience: function (context) {
-            expect(context).toEqual('mockedContext');
-            return this;
-          },
-          sign: function (jwtSecret) {
-            expect(jwtSecret).toEqual('secretEncoded');
-            return 'signToken';
-          }
-        }
+    test('should return false if an error ocurred on validation', async () => {
+      jwt.jwtVerify.mockImplementation(() => {
+        throw new Error()
       });
-      const token = await jwtInstance.getToken('mockedContext');
-      expect(jwtInstance.getSignJWT).toHaveBeenCalledTimes(1);
-      expect(token).toEqual('signToken');
+
+      const token = await jwtInstance.verifyToken('token', 'context');
+      expect(token).toEqual(false);
+      expect(jwt.jwtVerify).toThrow(new Error());
+    });
+
+    test('should return false if audience is invalid', async () => {
+      jwt.jwtVerify.mockReturnValue(
+        {
+          payload: {
+            aud: 'invalid',
+          },
+      });
+
+      const token = await jwtInstance.verifyToken('token', 'context');
+      expect(token).toEqual(false);
+    });
+
+    test('should return new token if token and context is valid', async () => {
+      jwt.jwtVerify.mockReturnValue(
+        {
+          payload: {
+            aud: 'context',
+          },
+      });
+      jwtInstance.diffMinutes = jest.fn(() => 4);
+      jwtInstance.getToken = jest.fn(() => 'newToken');
+
+      const token = await jwtInstance.verifyToken('token', 'context');
+      expect(token).toEqual('newToken');
+    });
+  });
+
+  describe('diffMinutes', () => {
+    test('should return diff minutes', () => {
+      const expire = Date.now() + (60 * 15);
+      const diff = jwtInstance.diffMinutes(expire);
+      expect(typeof diff).toBe('number');
+      expect(expire).toBeGreaterThan(diff);
+    });
+
+    test('should throw error for invalid expire value', () => {
+      let diff = jwtInstance.diffMinutes('invalid');
+      expect(isNaN(diff)).toBe(true);
+      diff = jwtInstance.diffMinutes({});
+      expect(isNaN(diff)).toBe(true);
+    });
+  });
+
+  describe('getDateLocaleString', () => {
+    test('shoud return locale string', () => {
+      jwtInstance.validUntil = new Date(2023, 0, 21);
+      const dateString = jwtInstance.getDateLocaleString();
+      expect(typeof dateString).toBe('string');
+      expect(dateString).toEqual('21/01/2023 00:00:00');
     });
   });
 });
