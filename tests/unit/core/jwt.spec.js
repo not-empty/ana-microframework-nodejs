@@ -1,20 +1,18 @@
 import Jwt from '#src/core/jwt.js';
+import jwt from 'jose';
 
 const mockSign = jest.fn(() => 'signToken');
 
-const jwt = require('jose');
-jest.mock('jose', () => {
-  return {
-    SignJWT: jest.fn(() => {
-      return {
-        setProtectedHeader: jest.fn().mockReturnThis(),
-        setAudience: jest.fn().mockReturnThis(),
-        sign: mockSign,
-      }
-    }),
-    jwtVerify: jest.fn(),
-  }
-});
+jest.mock('jose', () => ({
+  SignJWT: jest.fn(() => {
+    return {
+      setProtectedHeader: jest.fn().mockReturnThis(),
+      setAudience: jest.fn().mockReturnThis(),
+      sign: mockSign,
+    }
+  }),
+  jwtVerify: jest.fn(),
+}));
 
 describe('Jwt', () => {
   let jwtInstance;
@@ -23,22 +21,19 @@ describe('Jwt', () => {
     jwtInstance = new Jwt();
   });
 
-  afterAll(() => {
-    jest.clearAllMocks();
-  });
-
   describe('getToken', () => {
     test('should return a signed JWT token', async () => {
       jwtInstance.jwtSecret = 'secretEncoded';
 
       const token = await jwtInstance.getToken('mockedContext');
-      expect(token).toEqual(mockSign());
+      expect(mockSign).toHaveBeenCalledTimes(1);
+      expect(token).toEqual('signToken');
       expect(jwt.SignJWT).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('verifyToken', () => {
-    test('should return false if an error ocurred on validation', async () => {
+    test('should return false if an error occurred on validation', async () => {
       jwt.jwtVerify.mockImplementation(() => {
         throw new Error()
       });
@@ -49,11 +44,10 @@ describe('Jwt', () => {
     });
 
     test('should return false if audience is invalid', async () => {
-      jwt.jwtVerify.mockReturnValue(
-        {
-          payload: {
-            aud: 'invalid',
-          },
+      jwt.jwtVerify.mockReturnValue({
+        payload: {
+          aud: 'invalid',
+        },
       });
 
       const token = await jwtInstance.verifyToken('token', 'context');
@@ -61,11 +55,10 @@ describe('Jwt', () => {
     });
 
     test('should return new token if token and context is valid', async () => {
-      jwt.jwtVerify.mockReturnValue(
-        {
-          payload: {
-            aud: 'context',
-          },
+      jwt.jwtVerify.mockReturnValue({
+        payload: {
+          aud: 'context',
+        },
       });
       jwtInstance.diffMinutes = jest.fn(() => 4);
       jwtInstance.getToken = jest.fn(() => 'newToken');
@@ -92,7 +85,7 @@ describe('Jwt', () => {
   });
 
   describe('getDateLocaleString', () => {
-    test('shoud return locale string', () => {
+    test('should return locale string', () => {
       jwtInstance.validUntil = new Date(2023, 0, 21);
       const dateString = jwtInstance.getDateLocaleString();
       expect(typeof dateString).toBe('string');

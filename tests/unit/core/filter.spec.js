@@ -5,10 +5,10 @@ describe('Filter', () => {
     test('should return an empty map if filtersData is empty', () => {
       const config = {
         filter1: {
-          permissions: ['permission1', 'permission2'],
+          permissions: ['eql', 'gt'],
         },
         filter2: {
-          permissions: ['permission3'],
+          permissions: ['eql'],
         },
       };
       const filtersData = new Map();
@@ -21,18 +21,18 @@ describe('Filter', () => {
     test('should return valid filters based on config and filtersData', () => {
       const config = {
         filter1: {
-          permissions: ['permission1', 'permission2'],
+          permissions: ['eql', 'gt'],
         },
         filter2: {
-          permissions: ['permission3'],
+          permissions: ['eql'],
         },
         filter3: {
           permissions: []
         }
       };
       const filtersData = new Map([
-        ['filter1', 'permission1,value1'],
-        ['filter2', 'permission3,value2'],
+        ['filter1', 'eql,value1'],
+        ['filter2', 'eql,value2'],
       ]);
       const filter = new Filter(config, filtersData);
 
@@ -40,11 +40,11 @@ describe('Filter', () => {
 
       expect(result.size).toBe(2);
       expect(result.get('filter1')).toEqual({
-        type: 'permission1',
+        type: 'eql',
         data: 'value1',
       });
       expect(result.get('filter2')).toEqual({
-        type: 'permission3',
+        type: 'eql',
         data: 'value2',
       });
     });
@@ -52,18 +52,18 @@ describe('Filter', () => {
     test('should skip filters without config or empty config', () => {
       const config = {
         filter1: {
-          permissions: ['permission1', 'permission2'],
+          permissions: ['eql', 'gt'],
         },
         filter2: {
-          permissions: ['permission3'],
+          permissions: ['gt'],
         },
         filter4: {}
       };
       const filtersData = new Map([
-        ['filter1', 'permission1,value1'],
-        ['filter2', 'permission3,value2'],
-        ['filter3', 'permission4,value3'],
-        ['filter4', 'permission4,value3'],
+        ['filter1', 'eql,value1'],
+        ['filter2', 'gt,value2'],
+        ['filter3', 'eql,value3'],
+        ['filter4', 'eql,value3'],
       ]);
       const filter = new Filter(config, filtersData);
 
@@ -71,12 +71,12 @@ describe('Filter', () => {
 
       expect(result.size).toBe(2);
       expect(result.get('filter1')).toEqual({
-        type: 'permission1',
+        type: 'eql',
         data: 'value1',
       });
 
       expect(result.get('filter2')).toEqual({
-        type: 'permission3',
+        type: 'gt',
         data: 'value2',
       });
     });

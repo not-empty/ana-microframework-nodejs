@@ -6,17 +6,6 @@ jest.mock('ulid', () => ({
 }));
 
 describe('Response', () => {
-  let originalDateNow;
-
-  beforeAll(() => {
-    originalDateNow = Date.now;
-    global.Date.now = jest.fn().mockReturnValue(1625520000000); // Mock a fixed date (July 6, 2021 00:00:00 UTC)
-  });
-
-  afterAll(() => {
-    global.Date.now = originalDateNow;
-  });
-
   describe('send', () => {
     test('should return a response object with the provided token, data, and message', () => {
       const responseInstance = new Response();
@@ -29,7 +18,36 @@ describe('Response', () => {
         requestId: 'mockedUlid',
         message: 'mockedMessage',
       });
-      expect(ulid).toHaveBeenCalled();
+      expect(ulid).toHaveBeenCalledTimes(1);
+    });
+
+    test('should profile equal zero if request is instant return', () => {
+      const responseInstance = new Response();
+      responseInstance.start = 100000000;
+      const result = responseInstance.send('mockedToken', ['data1', 'data2'], 'mockedMessage');
+
+      expect(result).toEqual({
+        data: ['data1', 'data2'],
+        profiler: expect.any(Number),
+        token: 'mockedToken',
+        requestId: 'mockedUlid',
+        message: 'mockedMessage',
+      });
+      expect(ulid).toHaveBeenCalledTimes(1);
+    });
+
+    test('should return empty data and response without message', () => {
+      const responseInstance = new Response();
+      responseInstance.start = 100000000;
+      const result = responseInstance.send('mockedToken');
+
+      expect(result).toEqual({
+        data: [],
+        profiler: 0,
+        token: 'mockedToken',
+        requestId: 'mockedUlid',
+      });
+      expect(ulid).toHaveBeenCalledTimes(1);
     });
   });
 });
