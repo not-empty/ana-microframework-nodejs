@@ -4,13 +4,11 @@ import jwt from 'jose';
 const mockSign = jest.fn(() => 'signToken');
 
 jest.mock('jose', () => ({
-  SignJWT: jest.fn(() => {
-    return {
-      setProtectedHeader: jest.fn().mockReturnThis(),
-      setAudience: jest.fn().mockReturnThis(),
-      sign: mockSign,
-    }
-  }),
+  SignJWT: jest.fn(() => ({
+    setProtectedHeader: jest.fn().mockReturnThis(),
+    setAudience: jest.fn().mockReturnThis(),
+    sign: mockSign,
+  })),
   jwtVerify: jest.fn(),
 }));
 
@@ -38,7 +36,7 @@ describe('Jwt', () => {
         throw new Error()
       });
 
-      const token = await jwtInstance.verifyToken('token', 'context');
+      const token = await jwtInstance.verifyToken('Bearer token', 'context');
       expect(token).toEqual(false);
       expect(jwt.jwtVerify).toThrow(new Error());
     });
@@ -50,7 +48,7 @@ describe('Jwt', () => {
         },
       });
 
-      const token = await jwtInstance.verifyToken('token', 'context');
+      const token = await jwtInstance.verifyToken('Bearer token', 'context');
       expect(token).toEqual(false);
     });
 
@@ -63,8 +61,21 @@ describe('Jwt', () => {
       jwtInstance.diffMinutes = jest.fn(() => 4);
       jwtInstance.getToken = jest.fn(() => 'newToken');
 
-      const token = await jwtInstance.verifyToken('token', 'context');
+      const token = await jwtInstance.verifyToken('Bearer token', 'context');
       expect(token).toEqual('newToken');
+    });
+
+    test('should return received token if diffTime > timeToRegenerate', async () => {
+      jwt.jwtVerify.mockReturnValue({
+        payload: {
+          aud: 'context',
+        },
+      });
+      jwtInstance.diffMinutes = jest.fn(() => 1000);
+      jwtInstance.getToken = jest.fn(() => 'newToken');
+
+      const token = await jwtInstance.verifyToken('Bearer token', 'context');
+      expect(token).toEqual('token');
     });
   });
 
