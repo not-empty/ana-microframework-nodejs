@@ -1,4 +1,5 @@
 import { BaseRepository } from '#src/repositories/BaseRepository.js';
+import { ulid } from 'ulid';
 import { createConnection } from 'mysql';
 
 jest.mock('mysql', () => ({
@@ -7,6 +8,10 @@ jest.mock('mysql', () => ({
     connect: jest.fn((callback) => callback()),
     query: jest.fn((query, params, callback) => callback(null, {})),
   })),
+}));
+
+jest.mock('ulid', () => ({
+  ulid: jest.fn(),
 }));
 
 describe('BaseRepository', () => {
@@ -219,13 +224,54 @@ describe('BaseRepository', () => {
     test('should update', async () => {
       jest.spyOn(baseRepository, 'execQuery');
       const id = 1;
-      const params = 'name = "New Name", email = "New Email"';
-      await baseRepository.update(id, params);
+      const params = {
+        id,
+        name: 'New Name',
+        email: 'new@emal.com'
+      };
+      const result = await baseRepository.update(id, params);
 
       const [query, values] = baseRepository.execQuery.mock.calls[0];
       expect(query).toContain('table_name');
       expect(query).toContain('WHERE id = ?');
       expect(values).toEqual([params, id]);
+      expect(result).toEqual(id);
+    });
+  });
+
+  describe('insert', () => {
+    test('should insert with new ulid when id is undefined', async () => {
+      ulid.mockImplementation(() => 'newUlid');
+      jest.spyOn(baseRepository, 'execQuery');
+      const params = {
+        name: 'New Name',
+        email: 'new@emal.com'
+      };
+      const result = await baseRepository.insert(params);
+
+      const [query, values] = baseRepository.execQuery.mock.calls[0];
+      expect(result).toEqual('newUlid');
+      expect(query).toContain('INSERT INTO table_name');
+      expect(query).toContain('name,email,id');
+      expect(values).toEqual([[Object.values(params)]]);
+    });
+
+    test('should insert with id when id is not undefined', async () => {
+      ulid.mockImplementation(() => 'newUlid');
+      jest.spyOn(baseRepository, 'execQuery');
+      const params = {
+        id: 1,
+        name: 'New Name',
+        email: 'new@emal.com',
+        age: 80,
+      };
+      const result = await baseRepository.insert(params);
+
+      const [query, values] = baseRepository.execQuery.mock.calls[0];
+      expect(result).toEqual(1);
+      expect(query).toContain('INSERT INTO table_name');
+      expect(query).toContain('id,name,email,age');
+      expect(values).toEqual([[Object.values(params)]]);
     });
   });
 });
