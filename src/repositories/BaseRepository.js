@@ -157,18 +157,19 @@ class BaseRepository {
   applyFilters(filterData) {
     let conditions = '';
     const values = [];
-    for (const [key, value] of filterData) {
+
+    Object.entries(filterData).forEach(([ key, value ]) => {
       const operator = this.getOperator(value.type);
 
       conditions += ` AND ${key} ${operator} ?`;
 
       if (value.type == filters.FILTER_LIKE) {
         values.push(`%${value.data}%`);
-        continue;
+        return;
       }
 
       values.push(value.data);
-    }
+    });
 
     return {
       conditions: conditions,

@@ -4,7 +4,7 @@ import { createConnection } from 'mysql';
 
 jest.mock('mysql', () => ({
   createConnection: jest.fn(() => ({
-    state: 'mocked',
+    state: 'connected',
     connect: jest.fn((callback) => callback()),
     query: jest.fn((query, params, callback) => callback(null, {})),
   })),
@@ -24,7 +24,7 @@ describe('BaseRepository', () => {
   describe('constructor', () => {
     test('should create a connection with the correct configuration', () => {
       expect(baseRepository.connection).toBeDefined();
-      expect(baseRepository.connection.state).toBe('mocked');
+      expect(baseRepository.connection.state).toBe('connected');
       expect(createConnection).toHaveBeenCalledTimes(1);
     });
 
@@ -272,6 +272,200 @@ describe('BaseRepository', () => {
       expect(query).toContain('INSERT INTO table_name');
       expect(query).toContain('id,name,email,age');
       expect(values).toEqual([[Object.values(params)]]);
+    });
+  });
+
+  describe('applyFilters', () => {
+    test('should return valid conditions and values', () => {
+      const filterData = {
+        name: {
+          type: 'lik',
+          data: 'samuel'
+        },
+        email: {
+          type: 'eql',
+          data: 'email@email'
+        },
+      };
+      const result = baseRepository.applyFilters(filterData);
+
+      expect(result).toEqual({
+        conditions: ' AND name like ? AND email = ?',
+        values: [ '%samuel%', 'email@email' ]
+      });
+    });
+
+    test('should return empty object conditions and values', () => {
+      const result = baseRepository.applyFilters({});
+
+      expect(result).toEqual({
+        conditions: '',
+        values: []
+      });
+    });
+
+    test('should return undefined', () => {
+      const result = baseRepository.applyFilters({ name: {}, email: {}});
+
+      expect(result).toEqual({
+        conditions: ' AND name undefined ? AND email undefined ?',
+        values: [ undefined, undefined ]
+      });
+    });
+
+    test('should throw error', () => {
+      expect(() => {
+        baseRepository.applyFilters(undefined);
+      }).toThrow();
+    });
+  });
+
+  describe('getOperator', () => {
+    test('should return empty object conditions and values', () => {
+      let result = baseRepository.getOperator('eql');
+      expect(result).toEqual('=');
+      result = baseRepository.getOperator('gt');
+      expect(result).toEqual('>');
+      result = baseRepository.getOperator('gte');
+      expect(result).toEqual('>=');
+      result = baseRepository.getOperator('lt');
+      expect(result).toEqual('<');
+      result = baseRepository.getOperator('lte');
+      expect(result).toEqual('<=');
+      result = baseRepository.getOperator('lik');
+      expect(result).toEqual('like');
+      result = baseRepository.getOperator('neq');
+      expect(result).toEqual('<>');
+      result = baseRepository.getOperator('nnu');
+      expect(result).toEqual('IS NOT NULL');
+      result = baseRepository.getOperator('nul');
+      expect(result).toEqual('IS NULL');
+    });
+  });
+
+  describe('verifyConnection', () => {
+    test('should return true', async () => {
+      const result = await baseRepository.verifyConnection();
+      expect(result).toEqual(true);
+    });
+
+    test('should return true if reconnect', async () => {
+      baseRepository.connection.state = 'disconnected';
+      baseRepository.connection.connect.mockImplementation(callback => callback(false));
+      const result = await baseRepository.verifyConnection();
+      expect(result).toEqual(true);
+    });
+
+    test('should throw error if reconnect is failed', async () => {
+      baseRepository.connection.state = 'disconnected';
+      baseRepository.connection.connect.mockImplementation(callback => callback(true));
+      try {
+        await baseRepository.verifyConnection();
+      } catch (e) {
+        expect(e).toEqual(true);
+      }
+    });
+  });
+
+  describe('execQuery', () => {
+    test('should return result', async () => {
+      const query = `
+        SELECT
+          name,
+          email
+        FROM
+          users
+        WHERE
+          email = ?
+      `;
+      const params = [
+        "email@email.com"
+      ];
+      baseRepository.connection.query.mockImplementation(
+        (...args) => {
+          args[2](false, ['result']);
+        }
+      );
+      let result = await baseRepository.execQuery(query, params);
+      expect(result).toEqual(['result']);
+      result = await baseRepository.execQuery(query);
+      expect(result).toEqual(['result']);
+    });
+
+    test('should throw error', async () => {
+      const query = `
+        SELECT
+          name,
+          email
+        FROM
+          users
+        WHERE
+          email = ?
+      `;
+      const params = [
+        "email@email.com"
+      ];
+      baseRepository.connection.query.mockImplementation(
+        (...args) => {
+          args[2](true, []);
+        }
+      );
+      try {
+        await baseRepository.execQuery(query, params);
+      } catch (e) {
+        expect(e).toEqual(true);
+      }
+    });
+  });
+
+  describe('execSingleQuery', () => {
+    test('should return result', async () => {
+      const query = `
+        SELECT
+          name,
+          email
+        FROM
+          users
+        WHERE
+          email = ?
+      `;
+      const params = [
+        "email@email.com"
+      ];
+      baseRepository.connection.query.mockImplementation(
+        (...args) => {
+          args[2](false, ['result']);
+        }
+      );
+      let result = await baseRepository.execSingleQuery(query, params);
+      expect(result).toEqual('result');
+      result = await baseRepository.execSingleQuery(query);
+      expect(result).toEqual('result');
+    });
+
+    test('should throw error', async () => {
+      const query = `
+        SELECT
+          name,
+          email
+        FROM
+          users
+        WHERE
+          email = ?
+      `;
+      const params = [
+        "email@email.com"
+      ];
+      baseRepository.connection.query.mockImplementation(
+        (...args) => {
+          args[2](true, []);
+        }
+      );
+      try {
+        await baseRepository.execSingleQuery(query, params);
+      } catch (e) {
+        expect(e).toEqual(true);
+      }
     });
   });
 });
