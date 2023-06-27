@@ -71,7 +71,7 @@ docker exec ana-microservice-nodejs npm run lint
 docker exec ana-microservice-nodejs npm run test
 ```
 
-If you want teste coverage
+If you want test coverage
 ```sh
 docker exec ana-microservice-nodejs npm run test:cover
 ```
