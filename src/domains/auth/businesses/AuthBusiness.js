@@ -1,28 +1,33 @@
 import token from '#src/config/token.js';
+
 import Jwt from '#src/core/jwt.js';
 
 class AuthBusiness {
+  constructor() {
+    this.jwt = new Jwt();
+    this.token = token;
+  }
+
   async process(params) {
     const context = this.getContextFromCredential(params);
     if (context === null) {
       return null;
     }
 
-    const jwt = new Jwt();
-    const token = await jwt.getToken(context);
+    const token = await this.jwt.getToken(context);
 
     return {
       token,
-      valid_until: jwt.getDateLocaleString(),
+      valid_until: this.jwt.getDateLocaleString(),
     };
   }
 
   getContextFromCredential(params) {
     if (
-      typeof token[params.token] !== 'undefined' &&
-      token[params.token].secret === params.secret
+      typeof this.token[params.token] !== 'undefined' &&
+      this.token[params.token].secret === params.secret
     ) {
-      return token[params.token].name;
+      return this.token[params.token].name;
     }
 
     return null;

@@ -1,5 +1,5 @@
 class HealthController {
-  async process(req, res) {
+  async process(_, res) {
     const healthJson = {
       status: 'online',
       version: process.env.VERSION,

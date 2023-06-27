@@ -16,5 +16,7 @@ export const filters = {
     FILTER_LESS_THAN_OR_EQUAL: '<=',
     FILTER_LIKE: 'like',
     FILTER_NOT_EQUAL: '<>',
+    FILTER_NOT_NULL: 'IS NOT NULL',
+    FILTER_NULL: 'IS NULL',
   },
 };

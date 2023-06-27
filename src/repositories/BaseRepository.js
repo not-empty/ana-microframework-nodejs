@@ -41,7 +41,8 @@ class BaseRepository {
         WHERE
           id = ?
           AND deleted IS NOT NULL
-      `, [id]
+      `,
+      [id]
     );
   }
 
@@ -60,7 +61,8 @@ class BaseRepository {
           ${conditions}
         ORDER BY ${order} ${classOrder}
         LIMIT ${this.maxAmountRows} OFFSET ${offset}
-      `, values
+      `,
+      values
     );
   }
 
@@ -116,7 +118,7 @@ class BaseRepository {
   }
 
   async update(id, params) {
-    const sql =  `
+    const sql = `
       UPDATE
         ${this.table}
       SET
@@ -155,18 +157,19 @@ class BaseRepository {
   applyFilters(filterData) {
     let conditions = '';
     const values = [];
-    for (const [key, value] of filterData) {
+
+    Object.entries(filterData).forEach(([ key, value ]) => {
       const operator = this.getOperator(value.type);
 
       conditions += ` AND ${key} ${operator} ?`;
 
       if (value.type == filters.FILTER_LIKE) {
         values.push(`%${value.data}%`);
-        continue;
+        return;
       }
 
       values.push(value.data);
-    }
+    });
 
     return {
       conditions: conditions,

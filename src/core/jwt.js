@@ -10,7 +10,6 @@ class Jwt {
 
   async getToken(context) {
     const alg = 'HS256';
-
     this.validUntil.setSeconds(this.validUntil.getSeconds() + this.expire);
 
     return await new jwt.SignJWT(
