@@ -71,4 +71,14 @@ docker exec ana-microservice-nodejs npm run lint
 docker exec ana-microservice-nodejs npm run test
 ```
 
+If you want teste coverage
+```sh
+docker exec ana-microservice-nodejs npm run test:cover
+```
+
+Or if you need to run all validations together
+```sh
+docker exec ana-microservice-nodejs npm run checkallcover
+```
+
 **Kiwfy - Open your code, open your mind!**
