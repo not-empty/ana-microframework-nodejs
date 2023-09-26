@@ -81,4 +81,4 @@ Or if you need to run all validations together
 docker exec ana-microservice-nodejs npm run checkallcover
 ```
 
-**Kiwfy - Open your code, open your mind!**
+**Not Empty Foundation - Free codes, full minds**
